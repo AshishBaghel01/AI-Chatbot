@@ -1,0 +1,2 @@
+- [x] Change backend userSignup to return 409 for existing user instead of 401
+- [x] Update frontend signupUser to handle 409 status as "User already registered" error
