@@ -139,7 +139,7 @@ const Chat = () => {
             fontWeight: "600",
           }}
         >
-          Model - GPT 3.5 Turbo
+          I am your AI Chat Assistant
         </Typography>
         <Box
           sx={{
