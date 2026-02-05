@@ -136,7 +136,7 @@ const Login = () => {
               textAlign="center"
               sx={{ mb: 4, color: "rgba(255,255,255,0.7)" }}
             >
-              Enter your credentials to access your AI assistant
+              Enter your e-mail to access your AI assistant
             </Typography>
 
             <form onSubmit={handleSubmit}>

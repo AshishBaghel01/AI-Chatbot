@@ -59,8 +59,7 @@ const NotFound = () => {
           lineHeight: 1.6,
         }}
       >
-        The page you're looking for seems to have wandered off into the digital void.
-        Don't worry, our AI assistant is here to help you find your way back!
+        The page you're looking for seems to have some error.
       </Typography>
 
       <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", justifyContent: "center" }}>

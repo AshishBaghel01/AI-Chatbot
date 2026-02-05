@@ -1,8 +1,7 @@
-import { Box, IconButton, TextField, Typography } from "@mui/material";
+import { Box, IconButton, TextField } from "@mui/material";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import AttachFileRoundedIcon from "@mui/icons-material/AttachFileRounded";
 import { useState } from "react";
-import { FaRobot } from "react-icons/fa";
 
 const Footer = ({ onSend }: { onSend?: (msg: string) => void }) => {
   const [message, setMessage] = useState("");
@@ -27,15 +26,7 @@ const Footer = ({ onSend }: { onSend?: (msg: string) => void }) => {
           textAlign: "center",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2, mb: 1 }}>
-          <FaRobot size={24} color="#00fffc" />
-          <Typography variant="h6" sx={{ color: "#00fffc", fontWeight: 600 }}>
-            AI Chat Assistant
-          </Typography>
-        </Box>
-        <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-          Powered by OpenAI • Built with React & TypeScript
-        </Typography>
+
       </Box>
     );
   }
