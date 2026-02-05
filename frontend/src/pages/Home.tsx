@@ -29,17 +29,7 @@ const Home = () => {
             my: 10,
           }}
         >
-          <img
-            src="robot.png"
-            alt="robot"
-            style={{ width: "200px", margin: "auto" }}
-          />
-          <img
-            className="image-inverted rotate"
-            src="openai.png"
-            alt="openai"
-            style={{ width: "200px", margin: "auto" }}
-          />
+        
         </Box>
         <Box sx={{ display: "flex", mx: "auto" }}>
           <img
@@ -55,6 +45,8 @@ const Home = () => {
               marginBottom: 20,
               padding: 10,
             }}
+
+        
           />
         </Box>
       </Box>
