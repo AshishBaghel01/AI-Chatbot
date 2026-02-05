@@ -1,14 +1,12 @@
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import { Box, useTheme, useMediaQuery } from "@mui/material";
+import { Box } from "@mui/material";
 import Logo from "./shared/Logo";
 import { useAuth } from "../context/AuthContext";
 import NavigationLink from "./shared/NavigationLink";
 
 const Header = () => {
   const auth = useAuth();
-  const theme = useTheme();
-  const isBelowMd = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <AppBar

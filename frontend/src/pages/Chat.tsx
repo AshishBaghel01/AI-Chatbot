@@ -1,6 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import { Box, Avatar, Typography, Button, useTheme, useMediaQuery } from "@mui/material";
-import red from "@mui/material/colors/red";
+import { Box, Avatar, Typography, Button } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import ChatItem from "../components/chat/ChatItem";
 import { useNavigate } from "react-router-dom";
@@ -21,8 +20,6 @@ type Message = {
 const Chat = () => {
   const navigate = useNavigate();
   const auth = useAuth();
-  const theme = useTheme();
-  const isBelowMd = useMediaQuery(theme.breakpoints.down("md"));
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
 
   const handleSubmit = async (content: string) => {

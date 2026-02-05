@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { IoIosLogIn } from "react-icons/io";
-import { Box, Typography, Button, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import CustomizedInput from "../components/shared/CustomizedInput";
 import { toast } from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
@@ -10,8 +10,6 @@ import { FaRobot } from "react-icons/fa";
 const Login = () => {
   const navigate = useNavigate();
   const auth = useAuth();
-  const theme = useTheme();
-  const isBelowMd = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
