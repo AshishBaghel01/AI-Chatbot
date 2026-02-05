@@ -1,51 +1,69 @@
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
+import { Box, useTheme, useMediaQuery } from "@mui/material";
 import Logo from "./shared/Logo";
 import { useAuth } from "../context/AuthContext";
 import NavigationLink from "./shared/NavigationLink";
 
 const Header = () => {
   const auth = useAuth();
+  const theme = useTheme();
+  const isBelowMd = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <AppBar
-      sx={{ bgcolor: "transparent", position: "static", boxShadow: "none" }}
+      sx={{
+        bgcolor: "rgba(15, 23, 42, 0.8)",
+        backdropFilter: "blur(10px)",
+        position: "static",
+        boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+        borderBottom: "1px solid rgba(255,255,255,0.1)",
+      }}
     >
-      <Toolbar sx={{ display: "flex" }}>
+      <Toolbar
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          py: 1,
+        }}
+      >
         <Logo />
-        <div>
+
+        <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
           {auth?.isLoggedIn ? (
             <>
               <NavigationLink
-                bg="#00fffc"
+                bg="linear-gradient(45deg, #00fffc, #667eea)"
                 to="/chat"
                 text="Go To Chat"
-                textColor="black"
+                textColor="white"
               />
               <NavigationLink
-                bg="#51538f"
+                bg="linear-gradient(45deg, #ff6b6b, #ffa500)"
                 textColor="white"
                 to="/"
-                text="logout"
+                text="Logout"
                 onClick={auth.logout}
               />
             </>
           ) : (
             <>
               <NavigationLink
-                bg="#00fffc"
+                bg="linear-gradient(45deg, #00fffc, #667eea)"
                 to="/login"
                 text="Login"
-                textColor="black"
+                textColor="white"
               />
               <NavigationLink
-                bg="#51538f"
+                bg="linear-gradient(45deg, #764ba2, #667eea)"
                 textColor="white"
                 to="/signup"
                 text="Signup"
               />
             </>
           )}
-        </div>
+        </Box>
       </Toolbar>
     </AppBar>
   );

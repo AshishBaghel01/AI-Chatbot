@@ -1,30 +1,41 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;800&family=Work+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;800&family=Work+Sans:wght@300;400;500;600;700&display=swap");
 
 html,
 body {
   margin: 0;
   padding: 0;
-  background: #05101c;
+  background: linear-gradient(135deg, #05101c 0%, #0a1929 50%, #1a2332 100%);
   color: white;
   font-family: "Roboto Slab", serif;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .image-inverted {
   filter: invert(100%);
 }
+
 .nav-link {
   font-weight: 600;
   text-transform: uppercase;
   margin-right: 10px;
   margin-left: 10px;
-  padding: 8px 20px;
-  border-radius: 10px;
+  padding: 10px 24px;
+  border-radius: 25px;
   text-decoration: none;
   letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 255, 252, 0.2);
 }
+
+.nav-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 255, 252, 0.4);
+}
+
 .MuiOutlinedInput-input-root.Mui-focused,
 .MuiOutlinedInput-notchedOutline {
-  border-color: white !important;
+  border-color: #00fffc !important;
 }
 
 .rotate {
@@ -37,5 +48,49 @@ body {
   }
   to {
     transform: rotate(359deg);
+  }
+}
+
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.8s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

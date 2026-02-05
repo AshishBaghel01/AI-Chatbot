@@ -1,7 +1,8 @@
-import { Box, IconButton, TextField } from "@mui/material";
+import { Box, IconButton, TextField, Typography } from "@mui/material";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import AttachFileRoundedIcon from "@mui/icons-material/AttachFileRounded";
 import { useState } from "react";
+import { FaRobot } from "react-icons/fa";
 
 const Footer = ({ onSend }: { onSend?: (msg: string) => void }) => {
   const [message, setMessage] = useState("");
@@ -13,7 +14,30 @@ const Footer = ({ onSend }: { onSend?: (msg: string) => void }) => {
   };
 
   if (!onSend) {
-    return null; // Or render a simple footer without input
+    return (
+      <Box
+        sx={{
+          position: "sticky",
+          bottom: 0,
+          width: "100%",
+          py: 3,
+          background: "linear-gradient(to top, rgba(15,23,42,0.9), rgba(15,23,42,0.6), transparent)",
+          backdropFilter: "blur(10px)",
+          borderTop: "1px solid rgba(255,255,255,0.1)",
+          textAlign: "center",
+        }}
+      >
+        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2, mb: 1 }}>
+          <FaRobot size={24} color="#00fffc" />
+          <Typography variant="h6" sx={{ color: "#00fffc", fontWeight: 600 }}>
+            AI Chat Assistant
+          </Typography>
+        </Box>
+        <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
+          Powered by OpenAI • Built with React & TypeScript
+        </Typography>
+      </Box>
+    );
   }
 
   return (
@@ -24,33 +48,43 @@ const Footer = ({ onSend }: { onSend?: (msg: string) => void }) => {
         width: "100%",
         display: "flex",
         justifyContent: "center",
-        py: 2,
-        background:
-          "linear-gradient(to top, rgba(10,10,10,0.95), rgba(10,10,10,0.6), transparent)",
-        backdropFilter: "blur(12px)",
+        py: 3,
+        background: "linear-gradient(to top, rgba(15,23,42,0.95), rgba(15,23,42,0.8), rgba(15,23,42,0.6), transparent)",
+        backdropFilter: "blur(20px)",
+        borderTop: "1px solid rgba(255,255,255,0.1)",
       }}
     >
       <Box
         sx={{
-          width: { xs: "95%", md: "70%" },
+          width: { xs: "95%", md: "75%", lg: "60%" },
           display: "flex",
           alignItems: "center",
-          gap: 1,
-          px: 2,
-          py: 1,
-          borderRadius: "40px",
-          background: "rgba(255,255,255,0.05)",
-          border: "1px solid rgba(255,255,255,0.08)",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.5)",
+          gap: 2,
+          px: 3,
+          py: 2,
+          borderRadius: "50px",
+          background: "rgba(255,255,255,0.08)",
+          border: "1px solid rgba(255,255,255,0.12)",
+          boxShadow: "0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05)",
           transition: "all 0.3s ease",
           "&:focus-within": {
-            border: "1px solid #00e5ff",
-            boxShadow: "0 0 20px rgba(0,229,255,0.4)",
+            border: "1px solid #00fffc",
+            boxShadow: "0 0 30px rgba(0,255,252,0.3), 0 12px 40px rgba(0,0,0,0.4)",
+            background: "rgba(255,255,255,0.12)",
           },
         }}
       >
         {/* Attach Button */}
-        <IconButton sx={{ color: "#9ca3af" }}>
+        <IconButton
+          sx={{
+            color: "#9ca3af",
+            transition: "all 0.2s ease",
+            "&:hover": {
+              color: "#00fffc",
+              transform: "scale(1.1)",
+            },
+          }}
+        >
           <AttachFileRoundedIcon />
         </IconButton>
 
@@ -58,15 +92,26 @@ const Footer = ({ onSend }: { onSend?: (msg: string) => void }) => {
         <TextField
           fullWidth
           variant="standard"
-          placeholder="Ask anything..."
+          placeholder="Type your message here..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSend()}
+          onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
           InputProps={{
             disableUnderline: true,
             sx: {
               color: "white",
               fontSize: "16px",
+              "&::placeholder": {
+                color: "rgba(255,255,255,0.6)",
+                opacity: 1,
+              },
+            },
+          }}
+          sx={{
+            "& .MuiInput-root": {
+              "&:before, &:after": {
+                display: "none",
+              },
             },
           }}
         />
@@ -74,13 +119,22 @@ const Footer = ({ onSend }: { onSend?: (msg: string) => void }) => {
         {/* Send Button */}
         <IconButton
           onClick={handleSend}
+          disabled={!message.trim()}
           sx={{
-            bgcolor: "#00e5ff",
-            color: "#000",
-            width: 42,
-            height: 42,
-            "&:hover": { bgcolor: "#00c4db" },
-            boxShadow: "0 0 12px rgba(0,229,255,0.6)",
+            bgcolor: message.trim() ? "#00fffc" : "rgba(255,255,255,0.1)",
+            color: message.trim() ? "#000" : "#666",
+            width: 48,
+            height: 48,
+            transition: "all 0.3s ease",
+            "&:hover": {
+              bgcolor: message.trim() ? "#00e5e0" : "rgba(255,255,255,0.1)",
+              transform: message.trim() ? "scale(1.05)" : "none",
+            },
+            "&:disabled": {
+              bgcolor: "rgba(255,255,255,0.1)",
+              color: "#666",
+            },
+            boxShadow: message.trim() ? "0 0 20px rgba(0,255,252,0.4)" : "none",
           }}
         >
           <SendRoundedIcon />

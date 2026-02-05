@@ -2,6 +2,7 @@ import { Box, Avatar, Typography } from "@mui/material";
 import { useAuth } from "../../context/AuthContext";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { FaRobot } from "react-icons/fa";
 
 function extractCodeFromString(message: string) {
   if (message.includes("```")) {
@@ -38,30 +39,37 @@ const ChatItem = ({
       sx={{
         display: "flex",
         justifyContent: isAssistant ? "flex-start" : "flex-end",
-        px: { xs: 1, md: 4 },
-        my: 2,
+        px: { xs: 1, md: 3 },
+        my: 3,
+        animation: "slideUp 0.5s ease-out",
       }}
     >
       <Box
         sx={{
           display: "flex",
           flexDirection: isAssistant ? "row" : "row-reverse",
-          gap: 1.5,
-          maxWidth: "85%",
+          gap: 2,
+          maxWidth: "80%",
+          alignItems: "flex-start",
         }}
       >
         {/* Avatar */}
         <Avatar
           sx={{
-            bgcolor: isAssistant ? "#0f172a" : "#111",
+            bgcolor: isAssistant
+              ? "linear-gradient(45deg, #00fffc, #667eea)"
+              : "linear-gradient(45deg, #ff6b6b, #ffa500)",
             color: "white",
-            width: 42,
-            height: 42,
-            boxShadow: "0 4px 10px rgba(0,0,0,0.4)",
+            width: 48,
+            height: 48,
+            boxShadow: isAssistant
+              ? "0 8px 25px rgba(0,255,252,0.3)"
+              : "0 8px 25px rgba(255,107,107,0.3)",
+            border: "2px solid rgba(255,255,255,0.1)",
           }}
         >
           {isAssistant ? (
-            <img src="openai.png" alt="ai" width="24px" />
+            <FaRobot size={24} />
           ) : (
             <>
               {auth?.user?.name[0]}
@@ -73,17 +81,34 @@ const ChatItem = ({
         {/* Message Bubble */}
         <Box
           sx={{
-            p: 2,
-            borderRadius: 3,
+            p: 3,
+            borderRadius: 4,
             bgcolor: isAssistant
-              ? "rgba(0, 77, 86, 0.08)"
-              : "linear-gradient(135deg, #004d56, #006d77)",
-            color: isAssistant ? "#e5e7eb" : "white",
-            backdropFilter: "blur(10px)",
+              ? "rgba(255,255,255,0.05)"
+              : "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            color: isAssistant ? "rgba(255,255,255,0.9)" : "white",
+            backdropFilter: "blur(15px)",
             boxShadow: isAssistant
-              ? "0 4px 12px rgba(0,0,0,0.2)"
-              : "0 6px 16px rgba(0,0,0,0.4)",
-            border: "1px solid rgba(255,255,255,0.05)",
+              ? "0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1)"
+              : "0 12px 40px rgba(102,126,234,0.4), 0 0 0 1px rgba(255,255,255,0.2)",
+            border: isAssistant
+              ? "1px solid rgba(0,255,252,0.2)"
+              : "1px solid rgba(255,255,255,0.3)",
+            position: "relative",
+            "&::before": {
+              content: '""',
+              position: "absolute",
+              top: "20px",
+              [isAssistant ? "left" : "right"]: "-8px",
+              width: 0,
+              height: 0,
+              border: "8px solid transparent",
+              borderTopColor: isAssistant
+                ? "rgba(255,255,255,0.05)"
+                : "#667eea",
+              borderBottom: "none",
+              filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.1))",
+            },
           }}
         >
           {!messageBlocks && (
@@ -110,6 +135,7 @@ const ChatItem = ({
                       borderRadius: "12px",
                       padding: "16px",
                       fontSize: "14px",
+                      margin: 0,
                     }}
                   >
                     {block.trim()}
