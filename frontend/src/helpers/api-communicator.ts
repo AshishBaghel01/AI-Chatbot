@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api/v1",
+  baseURL: "https://ai-chatbot-back-0i91.onrender.com/api/v1",
   withCredentials: true,
 });
 
