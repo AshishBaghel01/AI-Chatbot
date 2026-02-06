@@ -1,6 +1,7 @@
 import { Box, IconButton, TextField } from "@mui/material";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import AttachFileRoundedIcon from "@mui/icons-material/AttachFileRounded";
+import MicRoundedIcon from "@mui/icons-material/MicRounded";
 import { useState } from "react";
 
 const Footer = ({ onSend }: { onSend?: (msg: string) => void }) => {
@@ -77,6 +78,20 @@ const Footer = ({ onSend }: { onSend?: (msg: string) => void }) => {
           }}
         >
           <AttachFileRoundedIcon />
+        </IconButton>
+
+        {/* Voice Button */}
+        <IconButton
+          sx={{
+            color: "#9ca3af",
+            transition: "all 0.2s ease",
+            "&:hover": {
+              color: "#00fffc",
+              transform: "scale(1.1)",
+            },
+          }}
+        >
+          <MicRoundedIcon />
         </IconButton>
 
         {/* Input Field */}

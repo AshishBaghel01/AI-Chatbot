@@ -1,8 +1,7 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { Box, Avatar, Typography, Button } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import ChatItem from "../components/chat/ChatItem";
-import { useNavigate } from "react-router-dom";
 import {
   deleteUserChats,
   getUserChats,
@@ -18,7 +17,6 @@ type Message = {
 };
 
 const Chat = () => {
-  const navigate = useNavigate();
   const auth = useAuth();
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
 
@@ -56,11 +54,7 @@ const Chat = () => {
     }
   }, [auth]);
 
-  useEffect(() => {
-    if (!auth?.user) {
-      return navigate("/login");
-    }
-  }, [auth, navigate]);
+
 
   return (
     <Box
@@ -105,15 +99,15 @@ const Chat = () => {
                 mb: 2,
                 width: 80,
                 height: 80,
-                bgcolor: "linear-gradient(45deg, #ff6b6b, #ffa500)",
+                bgcolor: auth?.isLoggedIn ? "linear-gradient(45deg, #ff6b6b, #ffa500)" : "linear-gradient(45deg, #00fffc, #667eea)",
                 color: "white",
                 fontWeight: 700,
                 fontSize: "24px",
-                boxShadow: "0 8px 25px rgba(255,107,107,0.3)",
+                boxShadow: auth?.isLoggedIn ? "0 8px 25px rgba(255,107,107,0.3)" : "0 8px 25px rgba(0,255,252,0.3)",
                 border: "3px solid rgba(255,255,255,0.2)",
               }}
             >
-              <FaUser />
+              {auth?.isLoggedIn ? <FaUser /> : <FaRobot />}
             </Avatar>
             <Typography
               sx={{
@@ -123,7 +117,7 @@ const Chat = () => {
                 mb: 1,
               }}
             >
-              Welcome back!
+              {auth?.isLoggedIn ? "Welcome back!" : "Try our AI Assistant"}
             </Typography>
             <Typography
               sx={{
@@ -131,7 +125,7 @@ const Chat = () => {
                 fontSize: "14px",
               }}
             >
-              {auth?.user?.name}
+              {auth?.isLoggedIn ? auth.user?.name : ""}
             </Typography>
           </Box>
 
