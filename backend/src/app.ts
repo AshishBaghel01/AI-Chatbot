@@ -8,7 +8,17 @@ config();
 const app = express();
 
 //middlewares
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+// Allow origins from env or sensible defaults (local dev + deployed frontend)
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || "http://localhost:5173,https://ai-chatbot-ab.onrender.com").split(",").map(o => o.trim());
+
+app.use(cors({
+	origin: (origin, callback) => {
+		if (!origin) return callback(null, true);
+		if (allowedOrigins.includes(origin)) return callback(null, true);
+		return callback(new Error(`CORS policy: origin ${origin} not allowed`));
+	},
+	credentials: true,
+}));
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
