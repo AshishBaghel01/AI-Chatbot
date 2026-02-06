@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import User from "../models/User.js";
-import configureOpenAI from "../config/openai-config.js";
-import type { ChatCompletionMessageParam } from "openai/resources/chat/completions";
+import configureGemini from "../config/gemini-config.js";
 export const generateChatCompletion = async (
   req: Request,
   res: Response,
@@ -18,23 +17,29 @@ export const generateChatCompletion = async (
     const chats = user.chats.map(({ role, content }) => ({
       role,
       content,
-    })) as ChatCompletionMessageParam[];
+    }));
     chats.push({ content: message, role: "user" });
     user.chats.push({ content: message, role: "user" });
 
-    // send all chats with new one to openAI API
+    // send all chats with new one to Gemini API
     // get latest response
-    const chatResponse = await configureOpenAI.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: chats,
+    const model = configureGemini.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const chat = model.startChat({
+      history: chats.slice(0, -1).map(chat => ({
+        role: chat.role === "user" ? "user" : "model",
+        parts: [{ text: chat.content }],
+      })),
     });
-    user.chats.push(chatResponse.choices[0].message);
+    const result = await chat.sendMessage(message);
+    const response = await result.response;
+    const text = response.text();
+    user.chats.push({ content: text, role: "assistant" });
     await user.save();
     return res.status(200).json({ chats: user.chats });
   } catch (error) {
     console.log(error);
     if (error.status === 429) {
-      return res.status(429).json({ message: "OpenAI quota exceeded. Please check your plan and billing details." });
+      return res.status(429).json({ message: "Gemini quota exceeded. Please check your plan and billing details." });
     }
     return res.status(500).json({ message: "Something went wrong" });
   }

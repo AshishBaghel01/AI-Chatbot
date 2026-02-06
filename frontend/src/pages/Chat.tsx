@@ -178,28 +178,30 @@ const Chat = () => {
             </Typography>
           </Box>
 
-          {/* Clear Conversation Button */}
-          <Button
-            onClick={handleDeleteChats}
-            sx={{
-              width: "100%",
-              py: 1.5,
-              color: "white",
-              fontWeight: 600,
-              borderRadius: 3,
-              background: "linear-gradient(45deg, #ff6b6b, #ffa500)",
-              border: "1px solid rgba(255,107,107,0.3)",
-              "&:hover": {
-                background: "linear-gradient(45deg, #ff5252, #ff8c00)",
-                transform: "translateY(-2px)",
-                boxShadow: "0 8px 25px rgba(255,107,107,0.4)",
-              },
-              transition: "all 0.3s ease",
-            }}
-            startIcon={<FaTrash />}
-          >
-            Clear Chat
-          </Button>
+          {/* Clear Conversation Button - Only show when logged in */}
+          {auth?.isLoggedIn && (
+            <Button
+              onClick={handleDeleteChats}
+              sx={{
+                width: "100%",
+                py: 1.5,
+                color: "white",
+                fontWeight: 600,
+                borderRadius: 3,
+                background: "linear-gradient(45deg, #ff6b6b, #ffa500)",
+                border: "1px solid rgba(255,107,107,0.3)",
+                "&:hover": {
+                  background: "linear-gradient(45deg, #ff5252, #ff8c00)",
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 8px 25px rgba(255,107,107,0.4)",
+                },
+                transition: "all 0.3s ease",
+              }}
+              startIcon={<FaTrash />}
+            >
+              Clear Chat
+            </Button>
+          )}
         </Box>
       </Box>
 
