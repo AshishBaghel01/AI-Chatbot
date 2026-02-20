@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { IoIosLogIn } from "react-icons/io";
 import { Box, Typography, Button } from "@mui/material";
 import CustomizedInput from "../components/shared/CustomizedInput";
 import { toast } from "react-hot-toast";
@@ -42,6 +41,7 @@ const Login = () => {
         alignItems: "center",
         justifyContent: "center",
         p: 2,
+        background: "linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%)",
       }}
     >
       <Box
@@ -49,10 +49,10 @@ const Login = () => {
           display: "flex",
           width: "100%",
           maxWidth: "1200px",
-          borderRadius: 4,
+          borderRadius: 3,
           overflow: "hidden",
-          boxShadow: "0 25px 50px rgba(0,0,0,0.3)",
-          minHeight: "600px",
+          boxShadow: "0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,255,252,0.1)",
+          minHeight: "650px",
         }}
         className="glassmorphism"
       >
@@ -63,16 +63,17 @@ const Login = () => {
             display: { xs: "none", md: "flex" },
             alignItems: "center",
             justifyContent: "center",
-            background: "linear-gradient(135deg, rgba(0,255,252,0.1), rgba(103,126,234,0.1))",
+            background: "linear-gradient(135deg, rgba(0,255,252,0.08), rgba(102,126,234,0.08))",
             position: "relative",
+            borderRight: "1px solid rgba(0,255,252,0.1)",
           }}
         >
-          <Box sx={{ textAlign: "center", zIndex: 2 }}>
-            <FaRobot size={120} color="#00fffc" style={{ marginBottom: 20 }} />
-            <Typography variant="h4" sx={{ mb: 2, fontWeight: 700, color: "#00fffc" }}>
+          <Box sx={{ textAlign: "center", zIndex: 2, px: 4 }}>
+            <FaRobot size={100} color="#00fffc" style={{ marginBottom: 30 }} />
+            <Typography variant="h4" sx={{ mb: 3, fontWeight: 800, color: "#e4e4e7" }}>
               Welcome Back
             </Typography>
-            <Typography variant="h6" sx={{ color: "rgba(255,255,255,0.8)", maxWidth: "300px" }}>
+            <Typography variant="body1" sx={{ color: "rgba(255,255,255,0.7)", maxWidth: "280px", lineHeight: 1.8 }}>
               Continue your AI-powered conversations and unlock new possibilities.
             </Typography>
           </Box>
@@ -80,25 +81,25 @@ const Login = () => {
           <Box
             sx={{
               position: "absolute",
-              top: "10%",
+              top: "15%",
               left: "10%",
               width: "60px",
               height: "60px",
-              background: "rgba(0,255,252,0.2)",
+              background: "rgba(0,255,252,0.1)",
               borderRadius: "50%",
-              animation: "float 6s ease-in-out infinite",
+              animation: "pulse 4s ease-in-out infinite",
             }}
           />
           <Box
             sx={{
               position: "absolute",
-              bottom: "20%",
-              right: "15%",
+              bottom: "15%",
+              right: "10%",
               width: "40px",
               height: "40px",
-              background: "rgba(103,126,234,0.2)",
+              background: "rgba(102,126,234,0.1)",
               borderRadius: "50%",
-              animation: "float 8s ease-in-out infinite reverse",
+              animation: "pulse 5s ease-in-out infinite reverse",
             }}
           />
         </Box>
@@ -106,44 +107,45 @@ const Login = () => {
         {/* Right Side - Form */}
         <Box
           sx={{
-            flex: { xs: 1, md: 0.6 },
+            flex: { xs: 1, md: 0.5 },
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            p: 4,
-            background: "rgba(255,255,255,0.05)",
+            p: { xs: 3, md: 5 },
+            background: "rgba(15, 15, 30, 0.7)",
           }}
         >
-          <Box sx={{ width: "100%", maxWidth: "400px" }}>
+          <Box sx={{ width: "100%", maxWidth: "380px" }}>
             <Typography
               variant="h4"
               textAlign="center"
               sx={{
-                mb: 3,
-                fontWeight: 700,
-                background: "linear-gradient(45deg, #00fffc, #ffffff)",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
+                mb: 2,
+                fontWeight: 800,
+                color: "#e4e4e7",
               }}
             >
               Sign In
             </Typography>
 
             <Typography
-              variant="body1"
+              variant="body2"
               textAlign="center"
-              sx={{ mb: 4, color: "rgba(255,255,255,0.7)" }}
+              sx={{
+                mb: 6,
+                color: "rgba(255,255,255,0.6)",
+                fontSize: "0.95rem",
+              }}
             >
-              Enter your e-mail to access your AI assistant
+              Enter your email to access your AI assistant
             </Typography>
 
             <form onSubmit={handleSubmit}>
-              <Box sx={{ mb: 3 }}>
+              <Box sx={{ mb: 4 }}>
                 <CustomizedInput type="email" name="email" label="Email Address" />
               </Box>
-              <Box sx={{ mb: 4 }}>
+              <Box sx={{ mb: 6 }}>
                 <CustomizedInput type="password" name="password" label="Password" />
               </Box>
 
@@ -151,27 +153,29 @@ const Login = () => {
                 type="submit"
                 fullWidth
                 sx={{
-                  py: 1.5,
-                  borderRadius: 3,
-                  bgcolor: "#00fffc",
-                  color: "#000",
-                  fontWeight: 600,
-                  fontSize: "16px",
+                  py: 1.7,
+                  borderRadius: 2,
+                  background: "linear-gradient(135deg, #00fffc, #00d4d4)",
+                  color: "#0a0a0a",
+                  fontWeight: 700,
+                  fontSize: "1rem",
+                  textTransform: "none",
+                  boxShadow: "0 10px 30px rgba(0,255,252,0.2)",
+                  border: "none",
                   "&:hover": {
-                    bgcolor: "#00e5e0",
+                    background: "linear-gradient(135deg, #00e5e0, #00b8b0)",
                     transform: "translateY(-2px)",
-                    boxShadow: "0 8px 25px rgba(0,255,252,0.4)",
+                    boxShadow: "0 15px 40px rgba(0,255,252,0.3)",
                   },
-                  transition: "all 0.3s ease",
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                 }}
-                endIcon={<IoIosLogIn />}
               >
                 Sign In
               </Button>
             </form>
 
-            <Box sx={{ textAlign: "center", mt: 3 }}>
-              <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
+            <Box sx={{ textAlign: "center", mt: 4 }}>
+              <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.6)" }}>
                 Don't have an account?{" "}
                 <Button
                   onClick={() => navigate("/signup")}
@@ -180,6 +184,7 @@ const Login = () => {
                     textTransform: "none",
                     p: 0,
                     minWidth: "auto",
+                    fontWeight: 600,
                     "&:hover": {
                       background: "none",
                       color: "#00e5e0",

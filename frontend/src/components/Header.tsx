@@ -11,11 +11,12 @@ const Header = () => {
   return (
     <AppBar
       sx={{
-        bgcolor: "rgba(15, 23, 42, 0.8)",
-        backdropFilter: "blur(10px)",
+        bgcolor: "rgba(10, 10, 10, 0.85)",
+        backdropFilter: "blur(20px)",
         position: "static",
-        boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
-        borderBottom: "1px solid rgba(255,255,255,0.1)",
+        boxShadow: "0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,255,252,0.1)",
+        borderBottom: "1px solid rgba(0, 255, 252, 0.1)",
+        transition: "all 0.3s ease",
       }}
     >
       <Toolbar
@@ -23,22 +24,29 @@ const Header = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          py: 1,
+          py: 1.5,
+          px: { xs: 1, md: 3 },
         }}
       >
         <Logo />
 
         <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+          <NavigationLink
+            bg="linear-gradient(135deg, #667eea, #764ba2)"
+            to="/"
+            text="Home"
+            textColor="white"
+          />
           {auth?.isLoggedIn ? (
             <>
               <NavigationLink
-                bg="linear-gradient(45deg, #00fffc, #667eea)"
+                bg="linear-gradient(135deg, #00fffc, #00d4d4)"
                 to="/chat"
                 text="Go To Chat"
                 textColor="white"
               />
               <NavigationLink
-                bg="linear-gradient(45deg, #ff6b6b, #ffa500)"
+                bg="linear-gradient(135deg, #ff6b6b, #ff5252)"
                 textColor="white"
                 to="/"
                 text="Logout"
@@ -48,13 +56,13 @@ const Header = () => {
           ) : (
             <>
               <NavigationLink
-                bg="linear-gradient(45deg, #00fffc, #667eea)"
+                bg="linear-gradient(135deg, #00fffc, #00d4d4)"
                 to="/login"
                 text="Login"
                 textColor="white"
               />
               <NavigationLink
-                bg="linear-gradient(45deg, #764ba2, #667eea)"
+                bg="linear-gradient(135deg, #667eea, #764ba2)"
                 textColor="white"
                 to="/signup"
                 text="Signup"

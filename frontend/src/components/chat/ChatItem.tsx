@@ -40,8 +40,8 @@ const ChatItem = ({
         display: "flex",
         justifyContent: isAssistant ? "flex-start" : "flex-end",
         px: { xs: 1, md: 3 },
-        my: 3,
-        animation: "slideUp 0.5s ease-out",
+        my: 2,
+        animation: "slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
       }}
     >
       <Box
@@ -49,7 +49,7 @@ const ChatItem = ({
           display: "flex",
           flexDirection: isAssistant ? "row" : "row-reverse",
           gap: 2,
-          maxWidth: "80%",
+          maxWidth: "85%",
           alignItems: "flex-start",
         }}
       >
@@ -57,19 +57,20 @@ const ChatItem = ({
         <Avatar
           sx={{
             bgcolor: isAssistant
-              ? "linear-gradient(45deg, #00fffc, #667eea)"
-              : "linear-gradient(45deg, #ff6b6b, #ffa500)",
+              ? "linear-gradient(135deg, #00fffc, #00d4d4)"
+              : "linear-gradient(135deg, #667eea, #764ba2)",
             color: "white",
-            width: 48,
-            height: 48,
+            width: 44,
+            height: 44,
             boxShadow: isAssistant
               ? "0 8px 25px rgba(0,255,252,0.3)"
-              : "0 8px 25px rgba(255,107,107,0.3)",
+              : "0 8px 25px rgba(102,126,234,0.3)",
             border: "2px solid rgba(255,255,255,0.1)",
+            flexShrink: 0,
           }}
         >
           {isAssistant ? (
-            <FaRobot size={24} />
+            <FaRobot size={22} />
           ) : (
             <>
               {auth?.user?.name[0]}
@@ -82,42 +83,44 @@ const ChatItem = ({
         <Box
           sx={{
             p: 3,
-            borderRadius: 4,
+            borderRadius: 3,
             bgcolor: isAssistant
-              ? "rgba(255,255,255,0.05)"
-              : "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-            color: isAssistant ? "rgba(255,255,255,0.9)" : "white",
-            backdropFilter: "blur(15px)",
+              ? "rgba(255,255,255,0.06)"
+              : "linear-gradient(135deg, rgba(102,126,234,0.2), rgba(118,75,162,0.2))",
+            color: isAssistant ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.98)",
+            backdropFilter: "blur(20px)",
             boxShadow: isAssistant
-              ? "0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1)"
-              : "0 12px 40px rgba(102,126,234,0.4), 0 0 0 1px rgba(255,255,255,0.2)",
+              ? "0 4px 20px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.08)"
+              : "0 8px 30px rgba(102,126,234,0.25), 0 0 0 1px rgba(102,126,234,0.2)",
             border: isAssistant
-              ? "1px solid rgba(0,255,252,0.2)"
-              : "1px solid rgba(255,255,255,0.3)",
+              ? "1px solid rgba(0,255,252,0.15)"
+              : "1px solid rgba(102,126,234,0.3)",
             position: "relative",
+            maxWidth: "100%",
+            wordWrap: "break-word",
+            overflow: "hidden",
             "&::before": {
               content: '""',
               position: "absolute",
-              top: "20px",
-              [isAssistant ? "left" : "right"]: "-8px",
+              top: "18px",
+              [isAssistant ? "left" : "right"]: "-6px",
               width: 0,
               height: 0,
-              border: "8px solid transparent",
-              borderTopColor: isAssistant
-                ? "rgba(255,255,255,0.05)"
-                : "#667eea",
-              borderBottom: "none",
-              filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.1))",
+              borderStyle: "solid",
+              borderWidth: isAssistant ? "6px 6px 6px 0" : "6px 0 6px 6px",
+              borderColor: isAssistant
+                ? `rgba(255,255,255,0.06) transparent rgba(255,255,255,0.06) rgba(255,255,255,0.06)`
+                : `rgba(102,126,234,0.2) rgba(102,126,234,0.2) transparent rgba(102,126,234,0.2)`,
             },
           }}
         >
           {!messageBlocks && (
             <Typography
               sx={{
-                fontSize: "16px",
-                lineHeight: 1.7,
+                fontSize: "0.95rem",
+                lineHeight: 1.8,
                 fontWeight: 400,
-                letterSpacing: "0.3px",
+                letterSpacing: "0.2px",
               }}
             >
               {content}
@@ -127,15 +130,16 @@ const ChatItem = ({
           {messageBlocks &&
             messageBlocks.map((block, index) =>
               isCodeBlock(block) ? (
-                <Box key={index} sx={{ my: 1 }}>
+                <Box key={index} sx={{ my: 2 }}>
                   <SyntaxHighlighter
                     style={coldarkDark}
                     language="javascript"
                     customStyle={{
-                      borderRadius: "12px",
-                      padding: "16px",
-                      fontSize: "14px",
+                      borderRadius: "10px",
+                      padding: "14px",
+                      fontSize: "13px",
                       margin: 0,
+                      background: "rgba(0,0,0,0.4)",
                     }}
                   >
                     {block.trim()}
@@ -145,8 +149,8 @@ const ChatItem = ({
                 <Typography
                   key={index}
                   sx={{
-                    fontSize: "16px",
-                    lineHeight: 1.7,
+                    fontSize: "0.95rem",
+                    lineHeight: 1.8,
                     my: 1,
                   }}
                 >

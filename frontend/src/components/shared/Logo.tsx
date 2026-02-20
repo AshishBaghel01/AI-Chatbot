@@ -11,13 +11,7 @@ const Logo = () => {
       }}
     >
       <Link to={"/"}>
-        <img
-          src="openai.png"
-          alt="openai"
-          width={"30px"}
-          height={"30px"}
-          className="image-inverted"
-        />
+     
       </Link>{" "}
       <Typography
         sx={{
