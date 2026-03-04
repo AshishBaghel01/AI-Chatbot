@@ -17,7 +17,13 @@ const theme = createTheme({
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AuthProvider>
-      <BrowserRouter future={{ v7_relativeSplatPath: true }}>
+      {/* enable future flags early to suppress warnings and opt-in to v7 behavior */}
+      <BrowserRouter
+        future={{
+          v7_relativeSplatPath: true,
+          v7_startTransition: true, // wrap state updates in startTransition
+        }}
+      >
         <ThemeProvider theme={theme}>
           <Toaster position="top-right" />
           <App />

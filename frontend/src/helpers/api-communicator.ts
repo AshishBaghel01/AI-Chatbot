@@ -1,9 +1,28 @@
 import axios from "axios";
 
+// allow overriding the backend URL via environment variable (Vite)
+const BASE_URL =
+  import.meta.env.VITE_API_BASE ||
+  "https://ai-chatbot-back-0i91.onrender.com/api/v1";
+
 const API = axios.create({
-  baseURL: "https://ai-chatbot-back-0i91.onrender.com/api/v1",
+  baseURL: BASE_URL,
   withCredentials: true,
 });
+
+// global interceptor to surface network issues more clearly
+API.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // if there's no response, it's a network-level error
+    if (error.code === "ECONNRESET" || !error.response) {
+      console.error("Network error or server unreachable:", error.message);
+      // we can wrap it in a friendlier message for callers
+      return Promise.reject(new Error("Network error: unable to contact server"));
+    }
+    return Promise.reject(error);
+  }
+);
 
 
 export const loginUser = async (email: string, password: string) => {
