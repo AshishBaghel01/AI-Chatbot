@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 // allow overriding the backend URL via environment variable (Vite)
 const BASE_URL =
@@ -38,8 +38,7 @@ export const loginUser = async (email: string, password: string) => {
   if (res.status !== 200) {
     throw new Error("Unable to login");
   }
-  const data = await res.data;
-  return data;
+  return res.data;
 };
 
 
@@ -54,17 +53,24 @@ export const signupUser = async (
   } else if (res.status !== 201) {
     throw new Error("Unable to Signup");
   }
-  const data = await res.data;
-  return data;
+  return res.data;
 };
 
 export const checkAuthStatus = async () => {
-  const res = await API.get("/user/auth-status");
-  if (res.status !== 200) {
-    throw new Error("Unable to authenticate");
+  try {
+    const res = await API.get("/user/auth-status");
+    if (res.status !== 200) {
+      throw new Error("Unable to authenticate");
+    }
+    return res.data;
+  } catch (error) {
+    const axiosError = error as AxiosError<unknown>;
+    // 401 means not authenticated, which is expected sometimes
+    if (axiosError.response?.status === 401) {
+      throw new Error("Not authenticated");
+    }
+    throw error;
   }
-  const data = await res.data;
-  return data;
 };
 
 export const sendChatRequest = async (message: string) => {
@@ -75,9 +81,10 @@ export const sendChatRequest = async (message: string) => {
     }
     const data = await res.data;
     return data;
-  } catch (error: any) {
+  } catch (error) {
+    const axiosError = error as AxiosError<unknown>;
     // If it's a 401 error, throw with a specific message
-    if (error.response?.status === 401) {
+    if (axiosError.response?.status === 401) {
       throw new Error("Session expired. Please login again.");
     }
     throw error;
@@ -85,28 +92,52 @@ export const sendChatRequest = async (message: string) => {
 };
 
 export const getUserChats = async () => {
-  const res = await API.get("/chat/all-chats");
-  if (res.status !== 200) {
-    throw new Error("Unable to send chat");
+  try {
+    const res = await API.get("/chat/all-chats");
+    if (res.status !== 200) {
+      throw new Error("Unable to fetch chats");
+    }
+    return res.data;
+  } catch (error) {
+    const axiosError = error as AxiosError<unknown>;
+    // If it's a 401 error, throw with a specific message
+    if (axiosError.response?.status === 401) {
+      throw new Error("Session expired. Please login again.");
+    }
+    throw error;
   }
-  const data = await res.data;
-  return data;
 };
 
 export const deleteUserChats = async () => {
-  const res = await API.delete("/chat/delete");
-  if (res.status !== 200) {
-    throw new Error("Unable to delete chats");
+  try {
+    const res = await API.delete("/chat/delete");
+    if (res.status !== 200) {
+      throw new Error("Unable to delete chats");
+    }
+    return res.data;
+  } catch (error) {
+    const axiosError = error as AxiosError<unknown>;
+    // If it's a 401 error, throw with a specific message
+    if (axiosError.response?.status === 401) {
+      throw new Error("Session expired. Please login again.");
+    }
+    throw error;
   }
-  const data = await res.data;
-  return data;
 };
 
 export const logoutUser = async () => {
-  const res = await API.get("/user/logout");
-  if (res.status !== 200) {
-    throw new Error("Unable to delete chats");
+  try {
+    const res = await API.get("/user/logout");
+    if (res.status !== 200) {
+      throw new Error("Unable to logout");
+    }
+    return res.data;
+  } catch (error) {
+    const axiosError = error as AxiosError<unknown>;
+    // If it's a 401 error, it means we're already logged out
+    if (axiosError.response?.status === 401) {
+      return { message: "Already logged out" };
+    }
+    throw error;
   }
-  const data = await res.data;
-  return data;
 };

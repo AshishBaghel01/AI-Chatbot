@@ -76,15 +76,20 @@ const Chat = () => {
     setChatMessages((prev) => [...prev, newMessage]);
     try {
       const chatData = await sendChatRequest(content);
-      setChatMessages([...chatData.chats]);
-    } catch (error: any) {
+      if (chatData?.chats && Array.isArray(chatData.chats)) {
+        setChatMessages([...chatData.chats]);
+      } else {
+        throw new Error("Invalid response format");
+      }
+    } catch (error) {
       // Remove the user message that failed to send
       setChatMessages((prev) => prev.slice(0, -1));
       
       // Handle specific error cases
-      if (error.message?.includes("Session expired")) {
+      const axiosError = error as AxiosError<unknown>;
+      if (axiosError.message?.includes("Session expired")) {
         toast.error("Session expired. Please login again.");
-      } else if (error.response?.status === 401) {
+      } else if (axiosError.response?.status === 401) {
         toast.error("Not authenticated. Please login again.");
       } else {
         toast.error("Failed to send message.");
@@ -124,14 +129,17 @@ const Chat = () => {
       toast.loading("Loading Chats", { id: "loadchats" });
       getUserChats()
         .then((data) => {
-          setChatMessages([...data.chats]);
+          if (data && data.chats) {
+            setChatMessages([...data.chats]);
+          }
           toast.success("Successfully loaded chats", { id: "loadchats" });
         })
         .catch((err) => {
           const axiosError = err as AxiosError;
           if (axiosError?.response?.status === 401) {
-  console.log(err);
-            toast.error("Loading Failed", { id: "loadchats" });          } else {
+            // Clear toasts and redirect to login if auth fails
+            toast.error("Session expired. Please login again.", { id: "loadchats" });
+          } else {
             console.log(err);
             toast.error("Loading Failed", { id: "loadchats" });
           }
@@ -606,9 +614,11 @@ const Chat = () => {
                 </Typography>
               </Box>
             ) : (
-              displayedMessages.map((chat, index) => (
-                <ChatItem content={chat.content} role={chat.role} key={index} />
-              ))
+              displayedMessages
+                .filter((chat) => chat && chat.content && chat.role)
+                .map((chat, index) => (
+                  <ChatItem content={chat.content} role={chat.role} key={index} />
+                ))
             )}
           </Box>
         </Box>

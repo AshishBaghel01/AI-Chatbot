@@ -73,8 +73,8 @@ const ChatItem = ({
             <FaRobot size={22} />
           ) : (
             <>
-              {auth?.user?.name[0]}
-              {auth?.user?.name.split(" ")[1]?.[0]}
+              {auth?.user?.name?.[0]}
+              {auth?.user?.name?.split(" ")?.[1]?.[0]}
             </>
           )}
         </Avatar>

@@ -20,13 +20,13 @@ export const verifyToken = async (
     return res.status(401).json({ message: "Token Not Received" });
   }
   return new Promise<void>((resolve, reject) => {
-    return jwt.verify(token, process.env.JWT_SECRET, (err, success) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, success) => {
       if (err) {
-        reject(err.message);
-        return res.status(401).json({ message: "Token Expired" });
+        console.error("Token verification error:", err);
+        return res.status(401).json({ message: "Token Expired or Invalid" });
       } else {
-        resolve();
         res.locals.jwtData = success;
+        resolve();
         return next();
       }
     });
