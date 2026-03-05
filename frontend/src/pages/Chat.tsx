@@ -65,13 +65,31 @@ const Chat = () => {
       toast.error("Open current chat to send new messages.");
       return;
     }
+    
+    // Check if user is authenticated before sending message
+    if (!auth?.isLoggedIn) {
+      toast.error("Please login to send messages.");
+      return;
+    }
+    
     const newMessage: Message = { role: "user", content };
     setChatMessages((prev) => [...prev, newMessage]);
     try {
       const chatData = await sendChatRequest(content);
       setChatMessages([...chatData.chats]);
-    } catch (error) {
-      toast.error("Failed to send message.");
+    } catch (error: any) {
+      // Remove the user message that failed to send
+      setChatMessages((prev) => prev.slice(0, -1));
+      
+      // Handle specific error cases
+      if (error.message?.includes("Session expired")) {
+        toast.error("Session expired. Please login again.");
+      } else if (error.response?.status === 401) {
+        toast.error("Not authenticated. Please login again.");
+      } else {
+        toast.error("Failed to send message.");
+      }
+      console.error("Error sending chat:", error);
     }
   };
 

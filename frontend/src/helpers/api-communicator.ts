@@ -20,6 +20,14 @@ API.interceptors.response.use(
       // we can wrap it in a friendlier message for callers
       return Promise.reject(new Error("Network error: unable to contact server"));
     }
+    
+    // Handle 401 Unauthorized - user not authenticated
+    if (error.response?.status === 401) {
+      console.error("Authentication failed: User not authorized");
+      // Return the error with status code so handlers can act accordingly
+      return Promise.reject(error);
+    }
+    
     return Promise.reject(error);
   }
 );
@@ -60,12 +68,20 @@ export const checkAuthStatus = async () => {
 };
 
 export const sendChatRequest = async (message: string) => {
-  const res = await API.post("/chat/new", { message });
-  if (res.status !== 200) {
-    throw new Error("Unable to send chat");
+  try {
+    const res = await API.post("/chat/new", { message });
+    if (res.status !== 200) {
+      throw new Error("Unable to send chat");
+    }
+    const data = await res.data;
+    return data;
+  } catch (error: any) {
+    // If it's a 401 error, throw with a specific message
+    if (error.response?.status === 401) {
+      throw new Error("Session expired. Please login again.");
+    }
+    throw error;
   }
-  const data = await res.data;
-  return data;
 };
 
 export const getUserChats = async () => {
