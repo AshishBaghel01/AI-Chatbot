@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 // allow overriding the backend URL via environment variable (Vite)
 const BASE_URL =
   import.meta.env.VITE_API_BASE ||
-  "http://localhost:5000/api/v1";
+  "https://ai-chatbot-back-0i91.onrender.com/api/v1";
 
 const API = axios.create({
   baseURL: BASE_URL,
