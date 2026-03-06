@@ -29,6 +29,13 @@ export const userSignup = async (
     const { name, email, password } = req.body;
     
     console.log("Signup attempt for email:", email);
+    console.log("Request body:", req.body);
+    
+    // Validate input
+    if (!name || !email || !password) {
+      console.log("Missing required fields");
+      return res.status(400).json({ message: "ERROR", cause: "Missing required fields: name, email, or password" });
+    }
     
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -36,9 +43,14 @@ export const userSignup = async (
       return res.status(409).send("User already registered");
     }
     
+    console.log("Hashing password for:", email);
     const hashedPassword = await hash(password, 10);
+    console.log("Password hashed successfully");
+    
     const user = new User({ name, email, password: hashedPassword });
+    console.log("Saving user to database...");
     await user.save();
+    console.log("User saved successfully, ID:", user._id);
 
     // create token and store cookie
     res.clearCookie(COOKIE_NAME, {
@@ -65,7 +77,11 @@ export const userSignup = async (
       .json({ message: "OK", name: user.name, email: user.email });
   } catch (error) {
     console.error("Signup error:", error);
-    return res.status(500).json({ message: "ERROR", cause: error instanceof Error ? error.message : "Unknown error" });
+    return res.status(500).json({ 
+      message: "ERROR", 
+      cause: error instanceof Error ? error.message : "Unknown error",
+      stack: error instanceof Error ? error.stack : undefined
+    });
   }
 };
 

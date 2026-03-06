@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import jwt, { SignOptions } from "jsonwebtoken";
 import { COOKIE_NAME } from "./constants.js";
 
 export const createToken = (id: string, email: string, expiresIn: string) => {
   const payload = { id, email };
-  const token = (jwt.sign as any)(payload, process.env.JWT_SECRET || 'default_secret', {
-    expiresIn,
-  });
+  const JWT_SECRET = process.env.JWT_SECRET || 'default_secret';
+  const options: SignOptions = { expiresIn: expiresIn as any };
+  const token = jwt.sign(payload, JWT_SECRET, options);
   return token;
 };
 
@@ -19,8 +19,11 @@ export const verifyToken = async (
   if (!token || token.trim() === "") {
     return res.status(401).json({ message: "Token Not Received" });
   }
+  
+  const JWT_SECRET = process.env.JWT_SECRET || 'default_secret';
+  
   return new Promise<void>((resolve, reject) => {
-    jwt.verify(token, process.env.JWT_SECRET, (err, success) => {
+    jwt.verify(token, JWT_SECRET, (err, success) => {
       if (err) {
         console.error("Token verification error:", err);
         return res.status(401).json({ message: "Token Expired or Invalid" });
@@ -31,4 +34,4 @@ export const verifyToken = async (
       }
     });
   });
-}; 
+};
