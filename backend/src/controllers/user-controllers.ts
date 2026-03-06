@@ -36,7 +36,6 @@ export const userSignup = async (
     // create token and store cookie
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
-      signed: true,
       path: "/",
     });
 
@@ -47,7 +46,6 @@ export const userSignup = async (
       path: "/",
       expires,
       httpOnly: true,
-      signed: true,
       sameSite: "lax",
     });
 
@@ -81,7 +79,6 @@ export const userLogin = async (
 
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
-      signed: true,
       path: "/",
     });
 
@@ -92,7 +89,6 @@ export const userLogin = async (
       path: "/",
       expires,
       httpOnly: true,
-      signed: true,
       sameSite: "lax",
     });
 
@@ -145,7 +141,6 @@ export const userLogout = async (
 
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
-      signed: true,
       path: "/",
     });
 

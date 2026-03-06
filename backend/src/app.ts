@@ -20,7 +20,7 @@ app.use(cors({
 	credentials: true,
 }));
 app.use(express.json());
-app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(cookieParser());
 
 //remove it in production
 app.use(morgan("dev"));
