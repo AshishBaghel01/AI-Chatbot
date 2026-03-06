@@ -5,7 +5,7 @@ import MicRoundedIcon from "@mui/icons-material/MicRounded";
 import { useState } from "react";
 import { FaGithub, FaTwitter, FaLinkedin, FaFacebook, FaHeart } from "react-icons/fa";
 
-const Footer = ({ onSend }: { onSend?: (msg: string) => void }) => {
+const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoading?: boolean }) => {
   const [message, setMessage] = useState("");
 
   const handleSend = () => {
@@ -87,14 +87,15 @@ const Footer = ({ onSend }: { onSend?: (msg: string) => void }) => {
           <TextField
             fullWidth
             variant="standard"
-            placeholder="Type your message here..."
+            placeholder={isLoading ? "AI is thinking..." : "Type your message here..."}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
+            onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && !isLoading && handleSend()}
+            disabled={isLoading}
             InputProps={{
               disableUnderline: true,
               sx: {
-                color: "#e4e4e7",
+                color: isLoading ? "rgba(255,255,255,0.4)" : "#e4e4e7",
                 fontSize: "0.95rem",
                 fontWeight: 500,
                 "::placeholder": {
@@ -115,21 +116,21 @@ const Footer = ({ onSend }: { onSend?: (msg: string) => void }) => {
           {/* Send Button */}
           <IconButton
             onClick={handleSend}
-            disabled={!message.trim()}
+            disabled={!message.trim() || isLoading}
             sx={{
-              background: message.trim() ? "linear-gradient(135deg, #00fffc, #00d4d4)" : "rgba(255,255,255,0.08)",
-              color: message.trim() ? "#0a0a0a" : "#666",
+              background: message.trim() && !isLoading ? "linear-gradient(135deg, #00fffc, #00d4d4)" : "rgba(255,255,255,0.08)",
+              color: message.trim() && !isLoading ? "#0a0a0a" : "#666",
               width: 44,
               height: 44,
               minWidth: 44,
               transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
               p: 0,
               "&:hover": {
-                background: message.trim()
+                background: message.trim() && !isLoading
                   ? "linear-gradient(135deg, #00e5e0, #00b8b0)"
                   : "rgba(255,255,255,0.08)",
-                transform: message.trim() ? "scale(1.1)" : "none",
-                boxShadow: message.trim() ? "0 0 25px rgba(0,255,252,0.4)" : "none",
+                transform: message.trim() && !isLoading ? "scale(1.1)" : "none",
+                boxShadow: message.trim() && !isLoading ? "0 0 25px rgba(0,255,252,0.4)" : "none",
               },
               "&:disabled": {
                 background: "rgba(255,255,255,0.05)",
@@ -137,7 +138,24 @@ const Footer = ({ onSend }: { onSend?: (msg: string) => void }) => {
               },
             }}
           >
-            <SendRoundedIcon fontSize="small" />
+            {isLoading ? (
+              <Box
+                sx={{
+                  width: 20,
+                  height: 20,
+                  border: "2px solid rgba(0,0,0,0.2)",
+                  borderTop: "2px solid #0a0a0a",
+                  borderRadius: "50%",
+                  animation: "spin 1s linear infinite",
+                  "@keyframes spin": {
+                    "0%": { transform: "rotate(0deg)" },
+                    "100%": { transform: "rotate(360deg)" },
+                  },
+                }}
+              />
+            ) : (
+              <SendRoundedIcon fontSize="small" />
+            )}
           </IconButton>
         </Box>
       </Box>
@@ -189,7 +207,7 @@ const Footer = ({ onSend }: { onSend?: (msg: string) => void }) => {
                   lineHeight: 1.8,
                 }}
               >
-                Experience the future of AI-powered conversations. Available 24/7 to help you with knowledge, advice, and engaging discussions.
+                Experience the AI-powered conversations. Available 24/7 to help you with knowledge, advice, and engaging discussions.
               </Typography>
             </Box>
 
@@ -463,7 +481,7 @@ const Footer = ({ onSend }: { onSend?: (msg: string) => void }) => {
               fontSize: "0.85rem",
             }}
           >
-            © 2026 AI Chatbot. All rights reserved.
+            © 2025 AI Chatbot. All rights reserved.
           </Typography>
 
           <Box

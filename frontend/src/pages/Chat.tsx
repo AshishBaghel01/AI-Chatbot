@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { Box, Avatar, Typography, Button } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import ChatItem from "../components/chat/ChatItem";
+import ProcessingChatItem from "../components/chat/ProcessingChatItem";
 import { AxiosError } from "axios";
 import {
   deleteUserChats,
@@ -51,6 +52,7 @@ const Chat = () => {
   const [historySessions, setHistorySessions] = useState<HistorySession[]>([]);
   const [selectedHistoryId, setSelectedHistoryId] = useState<string | null>(null);
   const [loadedHistoryKey, setLoadedHistoryKey] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const selectedHistory = useMemo(
     () => historySessions.find((session) => session.id === selectedHistoryId),
@@ -74,14 +76,17 @@ const Chat = () => {
     
     const newMessage: Message = { role: "user", content };
     setChatMessages((prev) => [...prev, newMessage]);
+    setIsLoading(true);
     try {
       const chatData = await sendChatRequest(content);
+      setIsLoading(false);
       if (chatData?.chats && Array.isArray(chatData.chats)) {
         setChatMessages([...chatData.chats]);
       } else {
         throw new Error("Invalid response format");
       }
     } catch (error) {
+      setIsLoading(false);
       // Remove the user message that failed to send
       setChatMessages((prev) => prev.slice(0, -1));
       
@@ -614,11 +619,14 @@ const Chat = () => {
                 </Typography>
               </Box>
             ) : (
-              displayedMessages
-                .filter((chat) => chat && chat.content && chat.role)
-                .map((chat, index) => (
-                  <ChatItem content={chat.content} role={chat.role} key={index} />
-                ))
+              <>
+                {displayedMessages
+                  .filter((chat) => chat && chat.content && chat.role)
+                  .map((chat, index) => (
+                    <ChatItem content={chat.content} role={chat.role} key={index} />
+                  ))}
+                {isLoading && <ProcessingChatItem />}
+              </>
             )}
           </Box>
         </Box>
@@ -661,7 +669,7 @@ const Chat = () => {
           </Box>
         )}
 
-        <Footer onSend={handleSubmit} />
+        <Footer onSend={handleSubmit} isLoading={isLoading} />
       </Box>
     </Box>
   );

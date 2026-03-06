@@ -7,9 +7,9 @@ const TypingAnim = () => {
         // Same substring at the start will only be typed once, initially
         "Chat With Your OWN AI",
         1000,
-        "Built With OpenAI ",
+        "Let's Chat",
         2000,
-        "Your Own Customized ChatBOT ",
+        "Your Own AI ChatBOT ",
         1500,
       ]}
       speed={50}

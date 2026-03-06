@@ -1,27 +1,19 @@
-# Switch from OpenAI to Gemini API
+# TODO - Processing Icon Implementation
 
-## Information Gathered
-- Current setup uses OpenAI API with openai package.
-- Chat controller uses OpenAI's chat completions API.
-- Configuration is in openai-config.ts.
-- Environment variable is OPEN_AI_SECRET.
-- User model stores chats with role and content.
+## Task: Add a processing icon in chatbox to show AI response processing
 
-## Plan
-- [ ] Update backend/package.json: Remove openai, add @google/generative-ai.
-- [ ] Rename backend/src/config/openai-config.ts to gemini-config.ts and update to use Gemini API.
-- [ ] Update backend/src/controllers/chat-controllers.ts to use Gemini API instead of OpenAI.
-- [ ] Update error handling in chat controller for Gemini API errors.
-- [ ] Update backend/README.md to reflect Gemini instead of OpenAI.
-- [ ] Update environment variable from OPEN_AI_SECRET to GEMINI_API_KEY.
+### Steps:
+- [x] 1. Add isLoading state to Chat.tsx
+- [x] 2. Update handleSubmit to set isLoading true/false
+- [x] 3. Create ProcessingChatItem component for loading indicator
+- [x] 4. Render ProcessingChatItem in messages area when loading
+- [x] 5. Pass isLoading to Footer component
+- [x] 6. Update Footer to disable input while loading
 
-## Dependent Files to be edited
-- backend/package.json
-- backend/src/config/openai-config.ts (rename and update)
-- backend/src/controllers/chat-controllers.ts
-- backend/README.md
+### Implementation Details:
+- Created ProcessingChatItem component with bouncing dots animation
+- The icon appears after user sends a message
+- It disappears when AI response is received
+- Input is disabled while AI is processing
+- Send button shows a spinner while loading
 
-## Followup steps
-- [ ] Install new dependencies.
-- [ ] Test the chat functionality.
-- [ ] Update .env file with new API key.
