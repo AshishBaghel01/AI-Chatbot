@@ -9,7 +9,7 @@ const app = express();
 
 //middlewares
 // Allow origins from env or sensible defaults (local dev + deployed frontend)
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || "http://localhost:5173,https://ai-chatbot-ab.onrender.com").split(",").map(o => o.trim());
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || "http://localhost:5173,https://ai-chatbot-ab.onrender.com,https://ai-chatbot-back-0i91.onrender.com").split(",").map(o => o.trim());
 
 app.use(cors({
 	origin: (origin, callback) => {
