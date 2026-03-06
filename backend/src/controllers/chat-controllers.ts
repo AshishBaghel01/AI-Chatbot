@@ -1,47 +1,84 @@
 import { NextFunction, Request, Response } from "express";
 import User from "../models/User.js";
 import configureGemini from "../config/gemini-config.js";
+
 export const generateChatCompletion = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   const { message } = req.body;
+
   try {
     const user = await User.findById(res.locals.jwtData.id);
-    if (!user)
+    if (!user) {
       return res
         .status(401)
         .json({ message: "User not registered OR Token malfunctioned" });
+    }
+
     // grab chats of user
     const chats = user.chats.map(({ role, content }) => ({
       role,
       content,
     }));
+
     chats.push({ content: message, role: "user" });
     user.chats.push({ content: message, role: "user" });
 
     // send all chats with new one to Gemini API
     // get latest response
-    const model = configureGemini.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const model = configureGemini.getGenerativeModel({ 
+      model: "gemini-2.5-flash",
+      generationConfig: {
+        temperature: 0.9,
+        topP: 1,
+        topK: 1,
+        maxOutputTokens: 2048,
+      }
+    });
+    
     const chat = model.startChat({
       history: chats.slice(0, -1).map(chat => ({
         role: chat.role === "user" ? "user" : "model",
         parts: [{ text: chat.content }],
       })),
     });
+    
     const result = await chat.sendMessage(message);
     const response = await result.response;
     const text = response.text();
-    user.chats.push({ content: text, role: "assistant" });
-    await user.save();
-    return res.status(200).json({ chats: user.chats });
-  } catch (error) {
-    console.log(error);
+
+    // Use findByIdAndUpdate to avoid full document validation issues
+    await User.findByIdAndUpdate(
+      user._id,
+      { 
+        $push: { 
+          chats: [
+            { content: message, role: "user" },
+            { content: text, role: "assistant" }
+          ] 
+        } 
+      }
+    );
+
+    // Fetch updated user to return the chats
+    const updatedUser = await User.findById(res.locals.jwtData.id);
+    return res.status(200).json({ chats: updatedUser?.chats || [] });
+  } catch (error: any) {
+    console.error("Error generating chat completion:", error);
+    
+    // Check for specific error types
     if (error.status === 429) {
       return res.status(429).json({ message: "Gemini quota exceeded. Please check your plan and billing details." });
     }
-    return res.status(500).json({ message: "Something went wrong" });
+    
+    // Return more detailed error message for debugging
+    const errorMessage = error.message || error.toString() || "Unknown error";
+    return res.status(500).json({ 
+      message: "Something went wrong",
+      error: errorMessage 
+    });
   }
 };
 
@@ -89,3 +126,4 @@ export const deleteChats = async (
     return res.status(200).json({ message: "ERROR", cause: error.message });
   }
 };
+
