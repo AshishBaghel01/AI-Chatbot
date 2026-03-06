@@ -27,8 +27,15 @@ export const userSignup = async (
   try {
     //user signup
     const { name, email, password } = req.body;
+    
+    console.log("Signup attempt for email:", email);
+    
     const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(409).send("User already registered");
+    if (existingUser) {
+      console.log("User already exists:", email);
+      return res.status(409).send("User already registered");
+    }
+    
     const hashedPassword = await hash(password, 10);
     const user = new User({ name, email, password: hashedPassword });
     await user.save();
@@ -52,12 +59,13 @@ export const userSignup = async (
       secure: true,
     });
 
+    console.log("Signup successful for:", email);
     return res
       .status(201)
       .json({ message: "OK", name: user.name, email: user.email });
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "ERROR", cause: error.message });
+    console.error("Signup error:", error);
+    return res.status(500).json({ message: "ERROR", cause: error instanceof Error ? error.message : "Unknown error" });
   }
 };
 
