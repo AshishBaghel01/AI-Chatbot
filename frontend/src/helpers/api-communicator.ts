@@ -17,15 +17,20 @@ API.interceptors.response.use(
     // if there's no response, it's a network-level error
     if (error.code === "ECONNRESET" || !error.response) {
       console.error("Network error or server unreachable:", error.message);
-      // we can wrap it in a friendlier message for callers
       return Promise.reject(new Error("Network error: unable to contact server"));
     }
     
     // Handle 401 Unauthorized - user not authenticated
     if (error.response?.status === 401) {
       console.error("Authentication failed: User not authorized");
-      // Return the error with status code so handlers can act accordingly
       return Promise.reject(error);
+    }
+    
+    // Handle 500 Internal Server Error - log the actual error message from server
+    if (error.response?.status === 500) {
+      console.error("Server error:", error.response.data);
+      const serverMessage = error.response.data?.cause || "Internal server error";
+      return Promise.reject(new Error(serverMessage));
     }
     
     return Promise.reject(error);
@@ -48,10 +53,14 @@ export const signupUser = async (
   password: string
 ) => {
   const res = await API.post("/user/signup", { name, email, password });
+  // Check for various error status codes
   if (res.status === 409) {
     throw new Error("User already registered");
   } else if (res.status !== 201) {
-    throw new Error("Unable to Signup");
+    // Log the actual error from server for debugging
+    console.error("Signup failed with status:", res.status, "Response:", res.data);
+    const errorMessage = res.data?.cause || "Unable to Signup";
+    throw new Error(errorMessage);
   }
   return res.data;
 };
