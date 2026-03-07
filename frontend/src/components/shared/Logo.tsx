@@ -21,7 +21,7 @@ const Logo = () => {
             fontSize: "1.25rem",
           }}
         >
-          My-GPT
+          IntelliBot
         </Typography>
       </Link>
     </div>
