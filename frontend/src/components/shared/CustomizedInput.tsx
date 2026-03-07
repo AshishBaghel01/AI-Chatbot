@@ -19,21 +19,22 @@ const CustomizedInput = ({
       sx={{
         mb: 2,
         "& .MuiOutlinedInput-root": {
-          color: "white",
+          color: "#ececec",
+          background: "rgba(255, 255, 255, 0.05)",
           "& fieldset": {
-            borderColor: "rgba(255,255,255,0.23)",
+            borderColor: "rgba(255, 255, 255, 0.2)",
           },
           "&:hover fieldset": {
-            borderColor: "rgba(255,255,255,0.4)",
+            borderColor: "rgba(255, 255, 255, 0.3)",
           },
           "&.Mui-focused fieldset": {
-            borderColor: "#00e5ff",
+            borderColor: "rgba(255, 255, 255, 0.5)",
           },
         },
         "& .MuiInputLabel-root": {
-          color: "rgba(255,255,255,0.7)",
+          color: "rgba(255, 255, 255, 0.6)",
           "&.Mui-focused": {
-            color: "#00e5ff",
+            color: "#ececec",
           },
         },
       }}
@@ -42,3 +43,4 @@ const CustomizedInput = ({
 };
 
 export default CustomizedInput;
+

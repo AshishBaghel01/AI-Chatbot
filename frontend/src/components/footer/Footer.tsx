@@ -24,11 +24,9 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
           width: "100%",
           display: "flex",
           justifyContent: "center",
-          py: 3,
+          py: 2,
           px: 2,
-          background: "linear-gradient(to top, rgba(10,10,10,0.95), rgba(10,10,10,0.85), rgba(10,10,10,0.7), transparent)",
-          backdropFilter: "blur(25px)",
-          borderTop: "1px solid rgba(0,255,252,0.1)",
+          background: "linear-gradient(to top, #000000 0%, #000000 80%, transparent)",
         }}
       >
         <Box
@@ -36,31 +34,21 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
             width: { xs: "100%", md: "85%", lg: "70%" },
             display: "flex",
             alignItems: "center",
-            gap: 1.5,
-            px: 3,
-            py: 2.5,
-            borderRadius: 3,
-            background: "linear-gradient(135deg, rgba(0,255,252,0.05), rgba(102,126,234,0.05))",
-            border: "1.5px solid rgba(0,255,252,0.15)",
-            boxShadow: "0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,255,252,0.05)",
-            transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-            "&:focus-within": {
-              border: "1.5px solid rgba(0,255,252,0.4)",
-              boxShadow: "0 0 30px rgba(0,255,252,0.3), 0 12px 40px rgba(0,0,0,0.5)",
-              background: "linear-gradient(135deg, rgba(0,255,252,0.08), rgba(102,126,234,0.08))",
-            },
+            gap: 1,
+            px: 2,
+            py: 1.5,
+            borderRadius: 2,
+            background: "#343541",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
           }}
         >
           {/* Attach Button */}
           <IconButton
             sx={{
-              color: "#a1a1a1",
-              transition: "all 0.3s ease",
-              p: 0.8,
+              color: "#888",
+              transition: "all 0.2s ease",
               "&:hover": {
-                color: "#00fffc",
-                transform: "scale(1.15) rotate(10deg)",
-                background: "rgba(0,255,252,0.1)",
+                color: "#ececec",
               },
             }}
           >
@@ -70,13 +58,10 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
           {/* Voice Button */}
           <IconButton
             sx={{
-              color: "#a1a1a1",
-              transition: "all 0.3s ease",
-              p: 0.8,
+              color: "#888",
+              transition: "all 0.2s ease",
               "&:hover": {
-                color: "#00fffc",
-                transform: "scale(1.15)",
-                background: "rgba(0,255,252,0.1)",
+                color: "#ececec",
               },
             }}
           >
@@ -95,11 +80,11 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
             InputProps={{
               disableUnderline: true,
               sx: {
-                color: isLoading ? "rgba(255,255,255,0.4)" : "#e4e4e7",
+                color: isLoading ? "rgba(255, 255, 255, 0.4)" : "#ececec",
                 fontSize: "0.95rem",
-                fontWeight: 500,
+                fontWeight: 400,
                 "::placeholder": {
-                  color: "rgba(255,255,255,0.5)",
+                  color: "rgba(255, 255, 255, 0.4)",
                   opacity: 1,
                 },
               },
@@ -118,33 +103,24 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
             onClick={handleSend}
             disabled={!message.trim() || isLoading}
             sx={{
-              background: message.trim() && !isLoading ? "linear-gradient(135deg, #00fffc, #00d4d4)" : "rgba(255,255,255,0.08)",
-              color: message.trim() && !isLoading ? "#0a0a0a" : "#666",
-              width: 44,
-              height: 44,
-              minWidth: 44,
-              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-              p: 0,
+              background: message.trim() && !isLoading ? "#ececec" : "rgba(255, 255, 255, 0.05)",
+              color: message.trim() && !isLoading ? "#000000" : "#555",
+              width: 40,
+              height: 40,
+              minWidth: 40,
+              transition: "all 0.2s ease",
               "&:hover": {
-                background: message.trim() && !isLoading
-                  ? "linear-gradient(135deg, #00e5e0, #00b8b0)"
-                  : "rgba(255,255,255,0.08)",
-                transform: message.trim() && !isLoading ? "scale(1.1)" : "none",
-                boxShadow: message.trim() && !isLoading ? "0 0 25px rgba(0,255,252,0.4)" : "none",
-              },
-              "&:disabled": {
-                background: "rgba(255,255,255,0.05)",
-                color: "#666",
+                background: message.trim() && !isLoading ? "#d4d4d4" : "rgba(255, 255, 255, 0.05)",
               },
             }}
           >
             {isLoading ? (
               <Box
                 sx={{
-                  width: 20,
-                  height: 20,
-                  border: "2px solid rgba(0,0,0,0.2)",
-                  borderTop: "2px solid #0a0a0a",
+                  width: 18,
+                  height: 18,
+                  border: "2px solid rgba(0, 0, 0, 0.2)",
+                  borderTop: "2px solid #000000",
                   borderRadius: "50%",
                   animation: "spin 1s linear infinite",
                   "@keyframes spin": {
@@ -168,9 +144,8 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
       component="footer"
       sx={{
         width: "100%",
-        background: "linear-gradient(180deg, rgba(10,10,10,0.5), #0a0a0a 100%)",
-        backdropFilter: "blur(10px)",
-        borderTop: "1px solid rgba(0,255,252,0.1)",
+        background: "#000000",
+        borderTop: "1px solid rgba(255, 255, 255, 0.1)",
         mt: "auto",
       }}
     >
@@ -180,8 +155,8 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
           container
           spacing={4}
           sx={{
-            py: 8,
-            color: "#e4e4e7",
+            py: 6,
+            color: "#ececec",
           }}
         >
           {/* Brand Section */}
@@ -190,11 +165,8 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
               <Typography
                 variant="h5"
                 sx={{
-                  fontWeight: 800,
-                  background: "linear-gradient(135deg, #00fffc, #667eea)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
+                  fontWeight: 600,
+                  color: "#ececec",
                   mb: 2,
                 }}
               >
@@ -203,75 +175,71 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
               <Typography
                 variant="body2"
                 sx={{
-                  color: "rgba(255,255,255,0.6)",
+                  color: "rgba(255, 255, 255, 0.5)",
                   lineHeight: 1.8,
                 }}
               >
-                Experience the AI-powered conversations. Available 24/7 to help you with knowledge, advice, and engaging discussions.
+                Experience AI-powered conversations. Available 24/7 to help you with knowledge, advice, and engaging discussions.
               </Typography>
             </Box>
 
             {/* Social Links */}
-            <Box sx={{ display: "flex", gap: 1.5, mt: 3 }}>
+            <Box sx={{ display: "flex", gap: 1, mt: 3 }}>
               <IconButton
                 size="small"
                 sx={{
-                  color: "#a1a1a1",
-                  background: "rgba(0,255,252,0.05)",
-                  transition: "all 0.3s ease",
+                  color: "#888",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  transition: "all 0.2s ease",
                   "&:hover": {
-                    color: "#00fffc",
-                    background: "rgba(0,255,252,0.15)",
-                    transform: "translateY(-2px)",
+                    color: "#ececec",
+                    background: "rgba(255, 255, 255, 0.1)",
                   },
                 }}
               >
-                <FaGithub size={18} />
+                <FaGithub size={16} />
               </IconButton>
               <IconButton
                 size="small"
                 sx={{
-                  color: "#a1a1a1",
-                  background: "rgba(0,255,252,0.05)",
-                  transition: "all 0.3s ease",
+                  color: "#888",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  transition: "all 0.2s ease",
                   "&:hover": {
-                    color: "#00fffc",
-                    background: "rgba(0,255,252,0.15)",
-                    transform: "translateY(-2px)",
+                    color: "#ececec",
+                    background: "rgba(255, 255, 255, 0.1)",
                   },
                 }}
               >
-                <FaTwitter size={18} />
+                <FaTwitter size={16} />
               </IconButton>
               <IconButton
                 size="small"
                 sx={{
-                  color: "#a1a1a1",
-                  background: "rgba(0,255,252,0.05)",
-                  transition: "all 0.3s ease",
+                  color: "#888",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  transition: "all 0.2s ease",
                   "&:hover": {
-                    color: "#667eea",
-                    background: "rgba(102,126,234,0.15)",
-                    transform: "translateY(-2px)",
+                    color: "#ececec",
+                    background: "rgba(255, 255, 255, 0.1)",
                   },
                 }}
               >
-                <FaLinkedin size={18} />
+                <FaLinkedin size={16} />
               </IconButton>
               <IconButton
                 size="small"
                 sx={{
-                  color: "#a1a1a1",
-                  background: "rgba(0,255,252,0.05)",
-                  transition: "all 0.3s ease",
+                  color: "#888",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  transition: "all 0.2s ease",
                   "&:hover": {
-                    color: "#ff6b6b",
-                    background: "rgba(255,107,107,0.15)",
-                    transform: "translateY(-2px)",
+                    color: "#ececec",
+                    background: "rgba(255, 255, 255, 0.1)",
                   },
                 }}
               >
-                <FaFacebook size={18} />
+                <FaFacebook size={16} />
               </IconButton>
             </Box>
           </Grid>
@@ -281,12 +249,10 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
             <Typography
               variant="h6"
               sx={{
-                fontWeight: 700,
-                color: "#00fffc",
-                mb: 3,
-                fontSize: "0.95rem",
-                textTransform: "uppercase",
-                letterSpacing: "0.5px",
+                fontWeight: 600,
+                color: "#ececec",
+                mb: 2,
+                fontSize: "0.9rem",
               }}
             >
               Product
@@ -297,12 +263,11 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
                   key={item}
                   variant="body2"
                   sx={{
-                    color: "rgba(255,255,255,0.6)",
+                    color: "rgba(255, 255, 255, 0.5)",
                     cursor: "pointer",
-                    transition: "all 0.3s ease",
+                    transition: "all 0.2s ease",
                     "&:hover": {
-                      color: "#00fffc",
-                      transform: "translateX(4px)",
+                      color: "#ececec",
                     },
                   }}
                 >
@@ -317,12 +282,10 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
             <Typography
               variant="h6"
               sx={{
-                fontWeight: 700,
-                color: "#667eea",
-                mb: 3,
-                fontSize: "0.95rem",
-                textTransform: "uppercase",
-                letterSpacing: "0.5px",
+                fontWeight: 600,
+                color: "#ececec",
+                mb: 2,
+                fontSize: "0.9rem",
               }}
             >
               Company
@@ -333,12 +296,11 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
                   key={item}
                   variant="body2"
                   sx={{
-                    color: "rgba(255,255,255,0.6)",
+                    color: "rgba(255, 255, 255, 0.5)",
                     cursor: "pointer",
-                    transition: "all 0.3s ease",
+                    transition: "all 0.2s ease",
                     "&:hover": {
-                      color: "#667eea",
-                      transform: "translateX(4px)",
+                      color: "#ececec",
                     },
                   }}
                 >
@@ -353,12 +315,10 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
             <Typography
               variant="h6"
               sx={{
-                fontWeight: 700,
-                color: "#764ba2",
-                mb: 3,
-                fontSize: "0.95rem",
-                textTransform: "uppercase",
-                letterSpacing: "0.5px",
+                fontWeight: 600,
+                color: "#ececec",
+                mb: 2,
+                fontSize: "0.9rem",
               }}
             >
               Legal
@@ -369,12 +329,11 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
                   key={item}
                   variant="body2"
                   sx={{
-                    color: "rgba(255,255,255,0.6)",
+                    color: "rgba(255, 255, 255, 0.5)",
                     cursor: "pointer",
-                    transition: "all 0.3s ease",
+                    transition: "all 0.2s ease",
                     "&:hover": {
-                      color: "#764ba2",
-                      transform: "translateX(4px)",
+                      color: "#ececec",
                     },
                   }}
                 >
@@ -389,12 +348,10 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
             <Typography
               variant="h6"
               sx={{
-                fontWeight: 700,
-                color: "#00fffc",
-                mb: 3,
-                fontSize: "0.95rem",
-                textTransform: "uppercase",
-                letterSpacing: "0.5px",
+                fontWeight: 600,
+                color: "#ececec",
+                mb: 2,
+                fontSize: "0.9rem",
               }}
             >
               Subscribe
@@ -402,7 +359,7 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
             <Typography
               variant="body2"
               sx={{
-                color: "rgba(255,255,255,0.6)",
+                color: "rgba(255, 255, 255, 0.5)",
                 mb: 2,
               }}
             >
@@ -412,15 +369,10 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
               sx={{
                 display: "flex",
                 gap: 1,
-                background: "rgba(255,255,255,0.05)",
-                padding: "6px",
-                borderRadius: "8px",
-                border: "1px solid rgba(0,255,252,0.15)",
-                transition: "all 0.3s ease",
-                "&:focus-within": {
-                  border: "1px solid rgba(0,255,252,0.3)",
-                  boxShadow: "0 0 20px rgba(0,255,252,0.2)",
-                },
+                background: "rgba(255, 255, 255, 0.05)",
+                padding: "4px 8px",
+                borderRadius: "6px",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
               }}
             >
               <TextField
@@ -430,10 +382,10 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
                 InputProps={{
                   disableUnderline: true,
                   sx: {
-                    color: "#e4e4e7",
+                    color: "#ececec",
                     fontSize: "0.85rem",
                     "::placeholder": {
-                      color: "rgba(255,255,255,0.4)",
+                      color: "rgba(255, 255, 255, 0.4)",
                     },
                   },
                 }}
@@ -442,11 +394,8 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
               <IconButton
                 size="small"
                 sx={{
-                  color: "#00fffc",
-                  transition: "all 0.3s ease",
-                  "&:hover": {
-                    transform: "scale(1.1)",
-                  },
+                  color: "#ececec",
+                  transition: "all 0.2s ease",
                 }}
               >
                 <SendRoundedIcon fontSize="small" />
@@ -458,8 +407,8 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
         {/* Divider */}
         <Divider
           sx={{
-            background: "linear-gradient(90deg, transparent, rgba(0,255,252,0.2), transparent)",
-            my: 4,
+            background: "rgba(255, 255, 255, 0.1)",
+            my: 3,
           }}
         />
 
@@ -470,15 +419,15 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
             flexDirection: { xs: "column", md: "row" },
             justifyContent: "space-between",
             alignItems: "center",
-            py: 4,
+            py: 3,
             gap: 2,
           }}
         >
           <Typography
             variant="body2"
             sx={{
-              color: "rgba(255,255,255,0.5)",
-              fontSize: "0.85rem",
+              color: "rgba(255, 255, 255, 0.4)",
+              fontSize: "0.8rem",
             }}
           >
             © 2025 AI Chatbot. All rights reserved.
@@ -489,18 +438,18 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
               display: "flex",
               alignItems: "center",
               gap: 0.5,
-              color: "rgba(255,255,255,0.5)",
-              fontSize: "0.85rem",
+              color: "rgba(255, 255, 255, 0.4)",
+              fontSize: "0.8rem",
             }}
           >
-            Made with <FaHeart size={14} style={{ color: "#ff6b6b", margin: "0 4px" }} /> by Developers
+            Made with <FaHeart size={12} style={{ color: "#888", margin: "0 4px" }} /> by Developers
           </Box>
 
           <Typography
             variant="body2"
             sx={{
-              color: "rgba(255,255,255,0.5)",
-              fontSize: "0.85rem",
+              color: "rgba(255, 255, 255, 0.4)",
+              fontSize: "0.8rem",
             }}
           >
             v1.0.0

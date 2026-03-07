@@ -192,7 +192,7 @@ const Chat = () => {
         flex: 1,
         width: "100%",
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%)",
+        background: "#000000",
         pt: 2,
         gap: 3,
         pb: 2,
@@ -212,53 +212,46 @@ const Chat = () => {
             display: "flex",
             width: "100%",
             height: "calc(100vh - 100px)",
-            background: "linear-gradient(135deg, rgba(102,126,234,0.08), rgba(118,75,162,0.08))",
-            backdropFilter: "blur(20px)",
-            borderRadius: 3,
-            border: "1px solid rgba(0,255,252,0.1)",
+            background: "#202123",
+            borderRadius: 2,
+            border: "1px solid rgba(255, 255, 255, 0.1)",
             flexDirection: "column",
             p: 3,
-            boxShadow: "0 20px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05)",
             scrollBehavior: "smooth",
             overflow: "auto",
           }}
         >
           {/* User Profile Section */}
-          <Box sx={{ textAlign: "center", mb: 5, pb: 4, borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+          <Box sx={{ textAlign: "center", mb: 4, pb: 3, borderBottom: "1px solid rgba(255, 255, 255, 0.1)" }}>
             <Avatar
               sx={{
                 mx: "auto",
-                mb: 3,
-                width: 72,
-                height: 72,
-                bgcolor: auth?.isLoggedIn
-                  ? "linear-gradient(135deg, #667eea, #764ba2)"
-                  : "linear-gradient(135deg, #00fffc, #00d4d4)",
+                mb: 2,
+                width: 56,
+                height: 56,
+                bgcolor: "#343541",
                 color: "white",
-                fontWeight: 700,
-                fontSize: "24px",
-                boxShadow: auth?.isLoggedIn
-                  ? "0 8px 25px rgba(102,126,234,0.3)"
-                  : "0 8px 25px rgba(0,255,252,0.3)",
-                border: "3px solid rgba(255,255,255,0.15)",
+                fontWeight: 600,
+                fontSize: "20px",
+                border: "2px solid rgba(255, 255, 255, 0.1)",
               }}
             >
               {auth?.isLoggedIn ? <FaUser /> : <FaRobot />}
             </Avatar>
             <Typography
               sx={{
-                fontWeight: 700,
-                color: "#e4e4e7",
-                fontSize: "16px",
-                mb: 1,
+                fontWeight: 600,
+                color: "#ececec",
+                fontSize: "14px",
+                mb: 0.5,
               }}
             >
               {auth?.isLoggedIn ? "Welcome back!" : "Try our AI Assistant"}
             </Typography>
             <Typography
               sx={{
-                color: "rgba(255,255,255,0.6)",
-                fontSize: "13px",
+                color: "rgba(255, 255, 255, 0.5)",
+                fontSize: "12px",
               }}
             >
               {auth?.isLoggedIn ? auth.user?.name : "Guest User"}
@@ -266,28 +259,27 @@ const Chat = () => {
           </Box>
 
           {/* AI Info Section */}
-          <Box sx={{ mb: 5, pb: 4, textAlign: "center", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
-            <Box sx={{ mb: 3, display: "flex", justifyContent: "center" }}>
-              <Box sx={{ animation: "pulse 2s ease-in-out infinite" }}>
-                <FaRobot size={40} color="#00fffc" />
+          <Box sx={{ mb: 4, pb: 3, textAlign: "center", borderBottom: "1px solid rgba(255, 255, 255, 0.1)" }}>
+            <Box sx={{ mb: 2, display: "flex", justifyContent: "center" }}>
+              <Box>
+                <FaRobot size={32} color="#ececec" />
               </Box>
             </Box>
             <Typography
               sx={{
-                fontWeight: 700,
-                color: "#00fffc",
-                mb: 2,
-                fontSize: "15px",
+                fontWeight: 600,
+                color: "#ececec",
+                mb: 1.5,
+                fontSize: "14px",
               }}
             >
               AI Assistant
             </Typography>
             <Typography
               sx={{
-                color: "rgba(255,255,255,0.6)",
-                fontSize: "13px",
+                color: "rgba(255, 255, 255, 0.5)",
+                fontSize: "12px",
                 lineHeight: 1.6,
-                px: 1,
               }}
             >
               Ask questions about knowledge, business, advice, education, and more.
@@ -295,21 +287,21 @@ const Chat = () => {
           </Box>
 
           {/* Stats Section */}
-          <Box sx={{ mb: 5, pb: 4, textAlign: "center", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+          <Box sx={{ mb: 4, pb: 3, textAlign: "center", borderBottom: "1px solid rgba(255, 255, 255, 0.1)" }}>
             <Typography
               sx={{
-                color: "rgba(255,255,255,0.6)",
-                fontSize: "13px",
-                mb: 2,
+                color: "rgba(255, 255, 255, 0.5)",
+                fontSize: "12px",
+                mb: 1,
               }}
             >
               Messages in session
             </Typography>
             <Typography
               sx={{
-                color: "#00fffc",
-                fontSize: "32px",
-                fontWeight: 800,
+                color: "#ececec",
+                fontSize: "28px",
+                fontWeight: 700,
               }}
             >
               {displayedMessages.length}
@@ -317,19 +309,19 @@ const Chat = () => {
           </Box>
 
           {/* Chat History Section */}
-          <Box sx={{ mb: 4, pb: 3, borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+          <Box sx={{ mb: 3, pb: 2, borderBottom: "1px solid rgba(255, 255, 255, 0.1)" }}>
             <Typography
               sx={{
-                color: "#e4e4e7",
-                fontWeight: 700,
-                fontSize: "14px",
+                color: "#ececec",
+                fontWeight: 600,
+                fontSize: "13px",
                 mb: 2,
                 display: "flex",
                 alignItems: "center",
                 gap: 1,
               }}
             >
-              <FaHistory size={13} />
+              <FaHistory size={12} />
               Chat Histories
             </Typography>
 
@@ -340,25 +332,21 @@ const Chat = () => {
               sx={{
                 mb: 1.2,
                 justifyContent: "flex-start",
-                borderRadius: 2,
+                borderRadius: 1.5,
                 textTransform: "none",
-                color: !selectedHistoryId ? "#0a0a0a" : "rgba(255,255,255,0.8)",
-                background: !selectedHistoryId
-                  ? "linear-gradient(135deg, #00fffc, #00d4d4)"
-                  : "rgba(255,255,255,0.05)",
+                color: !selectedHistoryId ? "#000000" : "rgba(255, 255, 255, 0.8)",
+                background: !selectedHistoryId ? "#ececec" : "rgba(255, 255, 255, 0.05)",
                 "&:hover": {
-                  background: !selectedHistoryId
-                    ? "linear-gradient(135deg, #00e5e0, #00b8b0)"
-                    : "rgba(255,255,255,0.08)",
+                  background: !selectedHistoryId ? "#d4d4d4" : "rgba(255, 255, 255, 0.1)",
                 },
               }}
             >
               Current Chat
             </Button>
 
-            <Box sx={{ maxHeight: "180px", overflowY: "auto", pr: 0.6 }}>
+            <Box sx={{ maxHeight: "150px", overflowY: "auto", pr: 0.5 }}>
               {historySessions.length === 0 && (
-                <Typography sx={{ color: "rgba(255,255,255,0.5)", fontSize: "12px", mt: 1 }}>
+                <Typography sx={{ color: "rgba(255, 255, 255, 0.4)", fontSize: "11px", mt: 1 }}>
                   No saved history yet.
                 </Typography>
               )}
@@ -369,33 +357,27 @@ const Chat = () => {
                   fullWidth
                   size="small"
                   sx={{
-                    mb: 1,
-                    py: 1,
-                    px: 1.2,
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
+                    mb: 0.8,
+                    py: 0.8,
+                    px: 1,
+                    justifyContent: "flex-start",
                     textTransform: "none",
-                    borderRadius: 2,
-                    background:
-                      selectedHistoryId === session.id ? "rgba(102,126,234,0.24)" : "rgba(255,255,255,0.04)",
-                    color: "rgba(255,255,255,0.9)",
-                    border:
-                      selectedHistoryId === session.id
-                        ? "1px solid rgba(102,126,234,0.45)"
-                        : "1px solid rgba(255,255,255,0.08)",
+                    borderRadius: 1.5,
+                    background: selectedHistoryId === session.id ? "rgba(255, 255, 255, 0.1)" : "rgba(255, 255, 255, 0.03)",
+                    color: "rgba(255, 255, 255, 0.8)",
+                    border: selectedHistoryId === session.id ? "1px solid rgba(255, 255, 255, 0.15)" : "1px solid transparent",
                     "&:hover": {
-                      background: "rgba(102,126,234,0.2)",
+                      background: "rgba(255, 255, 255, 0.08)",
                     },
                   }}
                 >
                   <Box sx={{ textAlign: "left", width: "100%" }}>
                     <Typography
                       sx={{
-                        fontSize: "12px",
-                        color: "#e4e4e7",
+                        fontSize: "11px",
+                        color: "#ececec",
                         lineHeight: 1.3,
-                        fontWeight: 600,
-                        mb: 0.4,
+                        fontWeight: 500,
                         whiteSpace: "nowrap",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
@@ -403,7 +385,7 @@ const Chat = () => {
                     >
                       {session.title}
                     </Typography>
-                    <Typography sx={{ fontSize: "11px", color: "rgba(255,255,255,0.55)" }}>
+                    <Typography sx={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.4)" }}>
                       {new Date(session.createdAt).toLocaleString()}
                     </Typography>
                   </Box>
@@ -417,13 +399,13 @@ const Chat = () => {
                 fullWidth
                 size="small"
                 sx={{
-                  mt: 1.5,
+                  mt: 1,
                   textTransform: "none",
-                  borderRadius: 2,
-                  color: "rgba(255,255,255,0.8)",
-                  background: "rgba(255,255,255,0.06)",
+                  borderRadius: 1.5,
+                  color: "rgba(255, 255, 255, 0.6)",
+                  background: "rgba(255, 255, 255, 0.03)",
                   "&:hover": {
-                    background: "rgba(255,255,255,0.1)",
+                    background: "rgba(255, 255, 255, 0.06)",
                   },
                 }}
               >
@@ -438,20 +420,16 @@ const Chat = () => {
               onClick={handleDeleteChats}
               fullWidth
               sx={{
-                py: 1.5,
-                color: "white",
-                fontWeight: 700,
-                fontSize: "0.9rem",
-                borderRadius: 2,
-                background: "linear-gradient(135deg, #ff6b6b, #ff5252)",
-                border: "1px solid rgba(255,107,107,0.2)",
-                boxShadow: "0 8px 20px rgba(255,107,107,0.2)",
+                py: 1.2,
+                color: "rgba(255, 255, 255, 0.7)",
+                fontWeight: 500,
+                fontSize: "0.85rem",
+                borderRadius: 1.5,
+                background: "rgba(255, 255, 255, 0.05)",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
                 "&:hover": {
-                  background: "linear-gradient(135deg, #ff5252, #ff3838)",
-                  transform: "translateY(-2px)",
-                  boxShadow: "0 12px 30px rgba(255,107,107,0.3)",
+                  background: "rgba(255, 255, 255, 0.1)",
                 },
-                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
               }}
               startIcon={<FaTrash />}
             >
@@ -472,22 +450,22 @@ const Chat = () => {
         }}
       >
         {/* Chat Header */}
-        <Box sx={{ mb: 4, textAlign: "center", pt: 2 }}>
+        <Box sx={{ mb: 3, textAlign: "center", pt: 2 }}>
           <Typography
             sx={{
-              fontSize: { xs: "28px", md: "36px" },
-              fontWeight: 800,
-              color: "#e4e4e7",
-              mb: 2,
+              fontSize: { xs: "24px", md: "32px" },
+              fontWeight: 600,
+              color: "#ececec",
+              mb: 1.5,
             }}
           >
             AI Chat Assistant
           </Typography>
           <Typography
             sx={{
-              color: "rgba(255,255,255,0.6)",
-              fontSize: "14px",
-              maxWidth: "600px",
+              color: "rgba(255, 255, 255, 0.5)",
+              fontSize: "13px",
+              maxWidth: "500px",
               mx: "auto",
             }}
           >
@@ -505,7 +483,7 @@ const Chat = () => {
             px: 1,
           }}
         >
-          <Typography sx={{ color: "rgba(255,255,255,0.65)", fontSize: "12px", mb: 1 }}>
+          <Typography sx={{ color: "rgba(255, 255, 255, 0.5)", fontSize: "11px", mb: 1 }}>
             Chat Histories
           </Typography>
           <Box sx={{ display: "flex", gap: 1, overflowX: "auto", pb: 0.5 }}>
@@ -515,10 +493,8 @@ const Chat = () => {
               sx={{
                 textTransform: "none",
                 whiteSpace: "nowrap",
-                color: !selectedHistoryId ? "#0a0a0a" : "rgba(255,255,255,0.85)",
-                background: !selectedHistoryId
-                  ? "linear-gradient(135deg, #00fffc, #00d4d4)"
-                  : "rgba(255,255,255,0.07)",
+                color: !selectedHistoryId ? "#000000" : "rgba(255, 255, 255, 0.8)",
+                background: !selectedHistoryId ? "#ececec" : "rgba(255, 255, 255, 0.05)",
               }}
             >
               Current
@@ -531,9 +507,8 @@ const Chat = () => {
                 sx={{
                   textTransform: "none",
                   whiteSpace: "nowrap",
-                  color: "rgba(255,255,255,0.9)",
-                  background:
-                    selectedHistoryId === session.id ? "rgba(102,126,234,0.28)" : "rgba(255,255,255,0.06)",
+                  color: "rgba(255, 255, 255, 0.8)",
+                  background: selectedHistoryId === session.id ? "rgba(255, 255, 255, 0.1)" : "rgba(255, 255, 255, 0.05)",
                 }}
               >
                 {session.title}
@@ -549,14 +524,12 @@ const Chat = () => {
             width: "100%",
             maxWidth: "900px",
             mx: "auto",
-            background: "linear-gradient(135deg, rgba(0,255,252,0.03), rgba(102,126,234,0.03))",
-            backdropFilter: "blur(15px)",
-            borderRadius: 3,
-            border: "1px solid rgba(0,255,252,0.1)",
+            background: "#202123",
+            borderRadius: 2,
+            border: "1px solid rgba(255, 255, 255, 0.1)",
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
-            boxShadow: "0 20px 50px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,255,252,0.05)",
           }}
         >
           <Box
@@ -570,15 +543,11 @@ const Chat = () => {
                 width: "8px",
               },
               "&::-webkit-scrollbar-track": {
-                background: "rgba(0,255,252,0.05)",
-                borderRadius: "4px",
+                background: "rgba(255, 255, 255, 0.02)",
               },
               "&::-webkit-scrollbar-thumb": {
-                background: "rgba(0,255,252,0.25)",
+                background: "rgba(255, 255, 255, 0.15)",
                 borderRadius: "4px",
-                "&:hover": {
-                  background: "rgba(0,255,252,0.4)",
-                },
               },
             }}
           >
@@ -594,24 +563,24 @@ const Chat = () => {
                   py: 6,
                 }}
               >
-                <Box sx={{ mb: 3, animation: "pulse 2s ease-in-out infinite" }}>
-                  <FaComments size={60} color="#00fffc" style={{ opacity: 0.5 }} />
+                <Box sx={{ mb: 3 }}>
+                  <FaComments size={50} color="#555" />
                 </Box>
                 <Typography
                   sx={{
-                    color: "#e4e4e7",
-                    fontSize: "18px",
-                    mb: 2,
-                    fontWeight: 600,
+                    color: "#ececec",
+                    fontSize: "16px",
+                    mb: 1.5,
+                    fontWeight: 500,
                   }}
                 >
                   Start a conversation
                 </Typography>
                 <Typography
                   sx={{
-                    color: "rgba(255,255,255,0.5)",
-                    fontSize: "14px",
-                    maxWidth: "400px",
+                    color: "rgba(255, 255, 255, 0.4)",
+                    fontSize: "13px",
+                    maxWidth: "350px",
                     lineHeight: 1.7,
                   }}
                 >
@@ -639,17 +608,17 @@ const Chat = () => {
               width: "100%",
               maxWidth: "900px",
               p: 1.5,
-              borderRadius: 2,
-              background: "rgba(102,126,234,0.12)",
-              border: "1px solid rgba(102,126,234,0.3)",
+              borderRadius: 1.5,
+              background: "rgba(255, 255, 255, 0.05)",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
               flexWrap: "wrap",
-              gap: 1.5,
+              gap: 1,
             }}
           >
-            <Typography sx={{ color: "#d4d4d8", fontSize: "13px", fontWeight: 500 }}>
+            <Typography sx={{ color: "rgba(255, 255, 255, 0.6)", fontSize: "12px", fontWeight: 500 }}>
               Viewing saved history: {selectedHistory.title}
             </Typography>
             <Button
@@ -657,10 +626,10 @@ const Chat = () => {
               size="small"
               sx={{
                 textTransform: "none",
-                color: "#0a0a0a",
-                background: "linear-gradient(135deg, #00fffc, #00d4d4)",
+                color: "#000000",
+                background: "#ececec",
                 "&:hover": {
-                  background: "linear-gradient(135deg, #00e5e0, #00b8b0)",
+                  background: "#d4d4d4",
                 },
               }}
             >
@@ -676,3 +645,4 @@ const Chat = () => {
 };
 
 export default Chat;
+

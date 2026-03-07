@@ -11,12 +11,10 @@ const Header = () => {
   return (
     <AppBar
       sx={{
-        bgcolor: "rgba(10, 10, 10, 0.85)",
-        backdropFilter: "blur(20px)",
+        bgcolor: "#000000",
         position: "static",
-        boxShadow: "0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,255,252,0.1)",
-        borderBottom: "1px solid rgba(0, 255, 252, 0.1)",
-        transition: "all 0.3s ease",
+        boxShadow: "none",
+        borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
       }}
     >
       <Toolbar
@@ -32,22 +30,22 @@ const Header = () => {
 
         <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
           <NavigationLink
-            bg="linear-gradient(135deg, #667eea, #764ba2)"
+            bg="rgba(255, 255, 255, 0.1)"
             to="/"
             text="Home"
-            textColor="white"
+            textColor="#ececec"
           />
           {auth?.isLoggedIn ? (
             <>
               <NavigationLink
-                bg="linear-gradient(135deg, #00fffc, #00d4d4)"
+                bg="rgba(255, 255, 255, 0.1)"
                 to="/chat"
                 text="Go To Chat"
-                textColor="white"
+                textColor="#ececec"
               />
               <NavigationLink
-                bg="linear-gradient(135deg, #ff6b6b, #ff5252)"
-                textColor="white"
+                bg="rgba(255, 255, 255, 0.1)"
+                textColor="#ececec"
                 to="/"
                 text="Logout"
                 onClick={auth.logout}
@@ -56,14 +54,14 @@ const Header = () => {
           ) : (
             <>
               <NavigationLink
-                bg="linear-gradient(135deg, #00fffc, #00d4d4)"
+                bg="rgba(255, 255, 255, 0.1)"
                 to="/login"
                 text="Login"
-                textColor="white"
+                textColor="#ececec"
               />
               <NavigationLink
-                bg="linear-gradient(135deg, #667eea, #764ba2)"
-                textColor="white"
+                bg="rgba(255, 255, 255, 0.1)"
+                textColor="#ececec"
                 to="/signup"
                 text="Signup"
               />
@@ -76,3 +74,4 @@ const Header = () => {
 };
 
 export default Header;
+
