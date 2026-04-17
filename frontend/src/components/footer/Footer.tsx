@@ -179,7 +179,7 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
                   lineHeight: 1.8,
                 }}
               >
-                Experience AI-powered conversations. Available 24/7 to help you with knowledge, advice, and engaging discussions.
+                Experience AI-powered conversations. Available 24/7 to help you with knowledge and engaging discussions.
               </Typography>
             </Box>
 
@@ -442,7 +442,7 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
               fontSize: "0.8rem",
             }}
           >
-            Made with <FaHeart size={12} style={{ color: "#888", margin: "0 4px" }} /> by Developers
+           
           </Box>
 
           <Typography
