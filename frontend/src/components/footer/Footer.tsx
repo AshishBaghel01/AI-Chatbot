@@ -363,7 +363,7 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
                 mb: 2,
               }}
             >
-              Get updates on new features and AI improvements.
+              Subscribe for new features.
             </Typography>
             <Box
               sx={{
@@ -376,7 +376,7 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
               }}
             >
               <TextField
-                placeholder="your@email.com"
+                placeholder="ash@gmail.com"
                 size="small"
                 variant="standard"
                 InputProps={{
@@ -430,7 +430,7 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
               fontSize: "0.8rem",
             }}
           >
-            © 2025 AI Chatbot. All rights reserved.
+            © AI Chatbot
           </Typography>
 
           <Box
