@@ -403,57 +403,6 @@ const Footer = ({ onSend, isLoading }: { onSend?: (msg: string) => void; isLoadi
             </Box>
           </Grid>
         </Grid>
-
-        {/* Divider */}
-        <Divider
-          sx={{
-            background: "rgba(255, 255, 255, 0.1)",
-            my: 3,
-          }}
-        />
-
-        {/* Bottom Footer */}
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: { xs: "column", md: "row" },
-            justifyContent: "space-between",
-            alignItems: "center",
-            py: 3,
-            gap: 2,
-          }}
-        >
-          <Typography
-            variant="body2"
-            sx={{
-              color: "rgba(255, 255, 255, 0.4)",
-              fontSize: "0.8rem",
-            }}
-          >
-            © AI Chatbot
-          </Typography>
-
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 0.5,
-              color: "rgba(255, 255, 255, 0.4)",
-              fontSize: "0.8rem",
-            }}
-          >
-           
-          </Box>
-
-          <Typography
-            variant="body2"
-            sx={{
-              color: "rgba(255, 255, 255, 0.4)",
-              fontSize: "0.8rem",
-            }}
-          >
-            v1.0.0
-          </Typography>
         </Box>
       </Container>
     </Box>
